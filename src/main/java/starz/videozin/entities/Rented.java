@@ -9,5 +9,5 @@ public class Rented {
     String pid;
     String ssn;
     String date;
-    //Boolean
+    //Boolean returned
 }

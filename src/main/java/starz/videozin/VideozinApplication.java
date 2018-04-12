@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VideozinApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(VideozinApplication.class, args);
 	}
 }

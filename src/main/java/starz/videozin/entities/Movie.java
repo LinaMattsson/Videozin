@@ -12,4 +12,5 @@ public class Movie {
     String name;
     @Column(nullable=false)
     String category;
+
 }
