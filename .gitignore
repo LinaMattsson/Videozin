@@ -2,3 +2,5 @@
 out/
 *.class
 .idea/workspace.xml
+target/
+src/main/resources/application.properties
