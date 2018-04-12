@@ -13,7 +13,7 @@ public class Customer {
     @Column(nullable=false)
     String lName;
     @Column(nullable=false)
-    String adress;
+    String address;
     @Column(nullable=false)
     String town;
     @Column(nullable=false)
@@ -49,11 +49,11 @@ public class Customer {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public void setAdress(String adress) {
-        this.adress = adress;
+        this.address = adress;
     }
 
     public String getTown() {
