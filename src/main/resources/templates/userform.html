@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Add user</title>
+</head>
+<body>
+
+<div>
+<form action="#" th:action="@{/addcustomer}" th:object="${customer}" method="post">
+    Personnr:<br>
+    <input type="text" th:field="*{socialSecurity}">
+    <br>
+    Namn:<br>
+    <input type="text" th:field="*{fName}">
+    <br>
+    Efternamn:<br>
+    <input type="text" th:field="*{lName}">
+    <br>
+    Adress:<br>
+    <input type="text" th:field="*{adress}">
+    <br>
+    Land:<br>
+    <input type="text" th:field="*{country}">
+    <br>
+    Stad:<br>
+    <input type="text" th:field="*{city}">
+    <br>
+    Postnummer:<br>
+    <input type="text" th:field="*{zip}">
+    <br>
+    Telefon:<br>
+    <input type="text" th:field="*{phone}">
+    <br>
+    Mail:<br>
+    <input type="text" th:field="*{mail}">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+</div>
+
+<div th:text="${message}"></div>
+<div th:style="${display} ? 'display:block' : 'display:none'">
+    <table>
+        <tr>
+            <th>Namn</th>
+            <th>Efternamn</th>
+            <th>Personnr</th>
+        </tr>
+        <th:block th:each="Customer : ${addedcustomer}">
+            <tr>
+                <td th:text="${Customer.fName}">temp text</td>
+                <td th:text="${Customer.lName}">temp text</td>
+                <td th:text="${Customer.socialSecurity}">temp text</td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+</body>
+</html>

@@ -15,7 +15,7 @@ public class Customer {
     @Column(nullable=false)
     String adress;
     @Column(nullable=false)
-    String town;
+    String country;
     @Column(nullable=false)
     String city;
     @Column(nullable=false)
@@ -56,12 +56,12 @@ public class Customer {
         this.adress = adress;
     }
 
-    public String getTown() {
-        return town;
+    public String getCountry() {
+        return country;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {

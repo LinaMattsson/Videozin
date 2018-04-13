@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Show Users</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/customers/result}" th:object="${customer}" method="post">
+    Personnr:
+    <br>
+    <input type="text" th:field="*{socialSecurity}">
+    <br>
+    Namn:
+    <br>
+    <input type="text" th:field="*{fName}">
+    <br>
+    Efternamn:
+    <br>
+    <input type="text" th:field="*{lName}">
+    <br>
+    Telefon:
+    <br>
+    <input type="text" th:field="*{phone}">
+    <br><br>
+    <input type="submit" value="Sök">
+</form>
+
+
+
+<table>
+    <tr>
+        <th>Namn</th>
+        <th>Efternamn</th>
+        <th>Personnr</th>
+    </tr>
+    <th:block th:each="Customer : ${customerlist}">
+        <tr>
+            <td th:text="${Customer.fName}">temp text</td>
+            <td th:text="${Customer.lName}">temp text</td>
+            <td th:text="${Customer.socialSecurity}">temp text</td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
