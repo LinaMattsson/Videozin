@@ -6,28 +6,24 @@
 </head>
 <body>
 
+<a th:href="@{/}">Hem</a>
+<br><br><br>
+
 <form action="#" th:action="@{/customers/result}" th:object="${customer}" method="post">
-    Personnr:
-    <br>
-    <input type="text" th:field="*{socialSecurity}">
-    <br>
-    Namn:
-    <br>
-    <input type="text" th:field="*{fName}">
-    <br>
-    Efternamn:
-    <br>
-    <input type="text" th:field="*{lName}">
-    <br>
-    Telefon:
-    <br>
-    <input type="text" th:field="*{phone}">
+    <br><br>
+    <input placeholder="Personnr" type="text" th:field="*{socialSecurity}">
+    <br><br>
+    <input placeholder="Namn" type="text" th:field="*{fName}">
+    <br><br>
+    <input placeholder="Efternamn" type="text" th:field="*{lName}">
+    <br><br>
+    <input placeholder="Telefon" type="text" th:field="*{phone}">
     <br><br>
     <input type="submit" value="Sök">
 </form>
 
-
-
+<div th:style="${displaycustomerresultdiv} ? 'display:block' : 'display:none'">
+    <br><br>
 <table>
     <tr>
         <th>Namn</th>
@@ -39,9 +35,46 @@
             <td th:text="${Customer.fName}">temp text</td>
             <td th:text="${Customer.lName}">temp text</td>
             <td th:text="${Customer.socialSecurity}">temp text</td>
+            <td>
+                <a th:href="@{/customers/byid/}+${Customer.socialSecurity}">Info</a>
+            </td>
         </tr>
     </th:block>
 </table>
+</div>
+
+<div th:text="${message}"></div>
+
+<div th:style="${displaycustomerinfodiv} ? 'display:block' : 'display:none'">
+    <br>
+    <br>
+    <table th:object="${customerinfo}">
+        <tr>
+            <th>Namn</th>
+            <th>Efternamn</th>
+            <th>Personnr</th>
+            <th>Telefon</th>
+            <th>Mail</th>
+            <th>Adress</th>
+            <th>Stad</th>
+            <th>Postnr</th>
+            <th>Land</th>
+        </tr>
+        <tr>
+            <td th:text="*{fName}">temp text</td>
+            <td th:text="*{lName}">temp text</td>
+            <td th:text="*{socialSecurity}">temp text</td>
+            <td th:text="*{phone}">temp text</td>
+            <td th:text="*{mail}">temp text</td>
+            <td th:text="*{adress}">temp text</td>
+            <td th:text="*{city}">temp text</td>
+            <td th:text="*{zip}">temp text</td>
+            <td th:text="*{country}">temp text</td>
+        </tr>
+    </table>
+    <a th:href="@{/customer/edit/byid/}+*{socialSecurity}">Uppdatera kund</a>
+    <a th:href="@{/customer/delete/byid/}+*{socialSecurity}">Radera kund</a>
+</div>
 
 </body>
 </html>

@@ -11,6 +11,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     List<Customer> findByFName(String fName);
     List<Customer> findCustomerBySocialSecurity(String socialSecurity);
     List<Customer> findByFNameOrLNameOrSocialSecurityOrPhone(String fName,String lName,String socialSecurity,String phone);
-
+    Customer findBySocialSecurity(String socialSecurity);
 
 }

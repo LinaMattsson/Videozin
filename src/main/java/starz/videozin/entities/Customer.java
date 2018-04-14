@@ -3,25 +3,44 @@ package starz.videozin.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
     @Id
+    @NotNull
+    @Size(min=11, max=13)
     String socialSecurity;
-    @Column(nullable=false)
+
+    @NotNull
+    @Size(min=2, max=30)
     String fName;
-    @Column(nullable=false)
+
+    @NotNull
+    @Size(min=2, max=30)
     String lName;
-    @Column(nullable=false)
+
+    @NotNull
+    @Size(min=2, max=30)
     String adress;
-    @Column(nullable=false)
+
+    @NotNull
+    @Size(min=2, max=30)
     String country;
-    @Column(nullable=false)
+
+    @NotNull
+    @Size(min=2, max=30)
     String city;
+
+    @NotNull
     @Column(nullable=false)
-    String zip;
-    @Column(nullable=false)
+    int zip;
+
+    @NotNull
+    @Size(min=8, max=15)
     String phone;
+
     String mail;
 
     public String getSocialSecurity() {
@@ -72,11 +91,11 @@ public class Customer {
         this.city = city;
     }
 
-    public String getZip() {
+    public int getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(int zip) {
         this.zip = zip;
     }
 
