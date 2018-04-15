@@ -9,7 +9,6 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, String> {
     List<Movie> findByName(String name);
     List<Movie> findByCategory(String category);
-    List<Movie> findByRented(boolean socialSecurity);
     List<Movie> findByNameOrCategoryOrPid(String name, String category, String pid);
     Movie findByPid(String pid);
 

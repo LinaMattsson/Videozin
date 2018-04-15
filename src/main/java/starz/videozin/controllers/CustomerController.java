@@ -87,13 +87,23 @@ public class CustomerController {
 
     @PostMapping("/addcustomer")
     public String submitCustomer(@ModelAttribute Customer customer, Model model) {
+        if (customer.getfName().equals("") ||
+                customer.getlName().equals("") ||
+                customer.getSocialSecurity().equals("") ||
+                customer.getPhone().equals("") ||
+                customer.getAdress().equals("") ||
+                customer.getCity().equals("") ||
+                customer.getCountry().equals("") ||
+                customer.getMail().equals("")){
+            model.addAttribute("message","Du måste fylla i alla fält");
+                return"userform";
+        }
+
         model.addAttribute("customer", customer);
-        model.addAttribute("message", "Du har lagt till kund:");
         model.addAttribute("addedcustomer", customer);
         model.addAttribute("displayaddeddiv", true);
         customerRepository.save(customer);
-
-
+        model.addAttribute("message", "Du har lagt till kund:");
         return "userform";
     }
 

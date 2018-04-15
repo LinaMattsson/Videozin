@@ -18,6 +18,10 @@
     <input type="submit" value="Sök">
 </form>
 
+<form action="#" th:action="@{/movies/rented}" method="get">
+    <input type="submit" value="Uthyrda">
+</form>
+
 <div th:style="${displaymovieresultdiv} ? 'display:block' : 'display:none'">
     <br><br>
     <table>
@@ -54,6 +58,9 @@
             <!--<td th:text="${rentstatus}">temp text</td>-->
         </tr>
     </table>
+    <script>
+        document.write('<a href="' + document.referrer + '">Go Back</a>');
+    </script>
 </div>
 
 </body>

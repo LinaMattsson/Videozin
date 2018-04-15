@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
 import starz.videozin.repositories.MovieRepository;
 
@@ -20,15 +22,17 @@ public class MovieController {
     public String showMovies(Model model) {
         model.addAttribute("movie", new Movie());
         model.addAttribute("displaymovie", new Movie());
+        model.addAttribute("customer",new Customer());
         return "showmovies";
     }
 
     @GetMapping("/movies/result")
-    public String findMovies(@ModelAttribute Movie movie, Model model) {
-        model.addAttribute("movie", movie);
+    public String findMovies(Movie movie, Model model) {
+        model.addAttribute("movie", new Movie());
         model.addAttribute("movielist", movieRepository.findByNameOrCategoryOrPid(movie.getName(),movie.getCategory(),movie.getPid()));
         model.addAttribute("displaymovieresultdiv", true);
         model.addAttribute("displaymovie", new Movie());
+        model.addAttribute("customer",new Customer());
 
         if(movie.getCategory().equals("")&&movie.getName().equals("")&&movie.getPid().equals("")){
             model.addAttribute("movielist", movieRepository.findAll());
@@ -41,6 +45,22 @@ public class MovieController {
         model.addAttribute("movie", new Movie());
         model.addAttribute("displaymovie", movieRepository.findByPid(pid));
         model.addAttribute("displaymovieinfo",true);
+        model.addAttribute("customer",new Customer());
+        return "showmovies";
+    }
+
+    @GetMapping("/movies/rented")
+    public String showRented(@ModelAttribute Customer customer, Model model){
+        model.addAttribute("customer",customer);
+        if(customer.getSocialSecurity()==null){
+            model.addAttribute("movielist", movieRepository.findAllMoviesRented());
+        }
+        else{
+            model.addAttribute("movielist", movieRepository.findMoviesRentedByCustomer(customer.getSocialSecurity()));
+        }
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("displaymovie",new Movie());
+        model.addAttribute("displaymovieresultdiv",true);
         return "showmovies";
     }
 }
