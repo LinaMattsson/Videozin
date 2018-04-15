@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/}">Start</a>
+<br>
+<form action="#" th:action="@{/movies/result}" th:object="${movie}" method="get">
+    <br><br>
+    <input placeholder="FilmID" type="text" th:field="*{pid}">
+    <br><br>
+    <input placeholder="Titel" type="text" th:field="*{name}">
+    <br><br>
+    <input placeholder="Kategori/Genre" type="text" th:field="*{category}">
+    <br><br>
+    <input type="submit" value="Sök">
+</form>
+
+<div th:style="${displaymovieresultdiv} ? 'display:block' : 'display:none'">
+    <br><br>
+    <table>
+        <tr>
+            <th>Titel</th>
+            <th>Format</th>
+        </tr>
+        <th:block th:each="Movie : ${movielist}">
+            <tr>
+                <td th:text="${Movie.name}">temp text</td>
+                <td th:text="${Movie.format}">temp text</td>
+                <!--<td th:text="${rentstatus}">temp text</td>-->
+                <td>
+                    <a th:href="@{/movie/byId/}+${Movie.pid}">Info</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+<br><br>
+<div th:style="${displaymovieinfo} ? 'display:block' : 'display:none'">
+    <table th:object="${displaymovie}">
+        <tr>
+            <th>Titel</th>
+            <th>Format</th>
+            <th>Kategori</th>
+            <th>Info</th>
+        </tr>
+        <tr>
+            <td th:text="*{name}">temp text</td>
+            <td th:text="*{format}">temp text</td>
+            <td th:text="*{category}">temp text</td>
+            <td th:text="*{description}">temp text</td>
+            <!--<td th:text="${rentstatus}">temp text</td>-->
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

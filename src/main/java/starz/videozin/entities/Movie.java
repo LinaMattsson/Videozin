@@ -15,6 +15,19 @@ public class Movie {
     @Column(nullable=false)
     String format;
     String description;
+    boolean rented;
+
+    public Movie() {
+    }
+
+    public Movie(String pid, String name, String category, String format, String description, boolean rented) {
+        this.pid = pid;
+        this.name = name;
+        this.category = category;
+        this.format = format;
+        this.description = description;
+        this.rented = rented;
+    }
 
     public String getPid() {
         return pid;
@@ -55,4 +68,13 @@ public class Movie {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public boolean getRented() {
+        return rented;
+    }
+
+    public void setRented(boolean rented) {
+        this.rented = rented;
+    }
+
 }
