@@ -3,9 +3,12 @@ package starz.videozin.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
-public class Movie {
+public class Movie extends Object{
     @Id
     String pid;
     @Column(nullable=false)
@@ -16,6 +19,10 @@ public class Movie {
     String format;
     String description;
     boolean rented;
+    Date date;
+    @ManyToOne()
+    Customer customer;
+
 
     public Movie() {
     }

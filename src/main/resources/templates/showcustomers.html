@@ -72,6 +72,10 @@
             <td th:text="*{country}">temp text</td>
         </tr>
     </table>
+
+    <table th:object="${}">
+
+    </table>
     <a th:href="@{/customer/edit/byid/}+*{socialSecurity}">Uppdatera kund</a>
     <a th:href="@{/customer/delete/byid/}+*{socialSecurity}">Radera kund</a>
 </div>

@@ -56,7 +56,7 @@ public class MovieController {
             model.addAttribute("movielist", movieRepository.findAllMoviesRented());
         }
         else{
-            model.addAttribute("movielist", movieRepository.findMoviesRentedByCustomer(customer.getSocialSecurity()));
+//            model.addAttribute("movielist", movieRepository.findMoviesRentedByCustomer(customer.getSocialSecurity()));
         }
         model.addAttribute("movie", new Movie());
         model.addAttribute("displaymovie",new Movie());

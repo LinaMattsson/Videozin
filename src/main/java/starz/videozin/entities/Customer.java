@@ -1,16 +1,14 @@
 package starz.videozin.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Customer {
     @Id
     @NotNull
-    @Size(min=11, max=13)
     String socialSecurity;
 
     @NotNull
@@ -42,6 +40,9 @@ public class Customer {
     String phone;
 
     String mail;
+
+    @OneToMany(mappedBy = "customer")
+    List<Movie> rentedMovies;
 
     public String getSocialSecurity() {
         return socialSecurity;

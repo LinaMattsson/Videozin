@@ -32,6 +32,7 @@ public class CustomerController {
         return "showcustomers";
     }
 
+
     @PostMapping("/customers/result")
     public String userResult(@ModelAttribute Customer customer, Model model) {
         model.addAttribute("displaycustomerresultdiv", true);
@@ -94,9 +95,9 @@ public class CustomerController {
                 customer.getAdress().equals("") ||
                 customer.getCity().equals("") ||
                 customer.getCountry().equals("") ||
-                customer.getMail().equals("")){
-            model.addAttribute("message","Du måste fylla i alla fält");
-                return"userform";
+                customer.getMail().equals("")) {
+            model.addAttribute("message", "Du måste fylla i alla fält");
+            return "userform";
         }
 
         model.addAttribute("customer", customer);
