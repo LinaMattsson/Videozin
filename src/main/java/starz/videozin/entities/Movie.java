@@ -1,35 +1,61 @@
 package starz.videozin.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.util.Date;
 
 @Entity
 public class Movie {
     @Id
-    String pid;
-    @Column(nullable=false)
-    String name;
-    @Column(nullable=false)
+    String mid;
+    String title;
     String category;
-    @Column(nullable=false)
     String format;
     String description;
+    Date releasedate;
+    Date rentdate;
+    @ManyToOne(targetEntity = Customer.class)
+    Customer customer;
 
-    public String getPid() {
-        return pid;
+    public Date getReleasedate() {
+        return releasedate;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setReleasedate(Date releasedate) {
+        this.releasedate = releasedate;
     }
 
-    public String getName() {
-        return name;
+    public Date getRentdate() {
+        return rentdate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRentdate(Date rentdate) {
+        this.rentdate = rentdate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getCategory() {

@@ -1,35 +1,27 @@
 package starz.videozin.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
     @Id
-    String socialSecurity;
-    @Column(nullable=false)
+    @OneToMany(mappedBy = "customer")
+    String ssn;
     String fName;
-    @Column(nullable=false)
     String lName;
-    @Column(nullable=false)
-    String adress;
-    @Column(nullable=false)
-    String town;
-    @Column(nullable=false)
-    String city;
-    @Column(nullable=false)
+    String address;
     String zip;
-    @Column(nullable=false)
+    String city;
+    String country;
     String phone;
     String mail;
 
-    public String getSocialSecurity() {
-        return socialSecurity;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setSocialSecurity(String socialSecurity) {
-        this.socialSecurity = socialSecurity;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     public String getfName() {
@@ -48,20 +40,20 @@ public class Customer {
         this.lName = lName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTown() {
-        return town;
+    public String getCountry() {
+        return country;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {
