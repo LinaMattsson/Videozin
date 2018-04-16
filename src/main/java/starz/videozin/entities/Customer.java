@@ -1,11 +1,11 @@
 package starz.videozin.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Customer {
     @Id
-    @OneToMany(mappedBy = "customer")
     String ssn;
     String fName;
     String lName;
@@ -15,6 +15,17 @@ public class Customer {
     String country;
     String phone;
     String mail;
+    @OneToMany(mappedBy = "customer")
+    List<Movie> rentedMovies;
+
+
+    public List<Movie> getRentedMovies() {
+        return rentedMovies;
+    }
+
+    public void setRentedMovies(List<Movie> rentedMovies) {
+        this.rentedMovies = rentedMovies;
+    }
 
     public String getSsn() {
         return ssn;
