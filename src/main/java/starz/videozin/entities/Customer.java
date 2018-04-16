@@ -16,6 +16,7 @@ public class Customer {
     String phone;
     String mail;
 
+
     public String getSsn() {
         return ssn;
     }

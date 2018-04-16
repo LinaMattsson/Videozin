@@ -1,4 +1,4 @@
 package starz.videozin.repositories;
 
-public class MovieRepository {
+public interface MovieRepository {
 }
