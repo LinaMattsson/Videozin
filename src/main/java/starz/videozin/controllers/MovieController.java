@@ -16,13 +16,11 @@ public class MovieController {
 
     @Autowired
     MovieRepository movieRepository;
-    @Autowired
-    CustomerRepository customerRepository;
 
     @GetMapping("/addmovie")
-    public String addmovie(Model model){
+    public String addMovie(Model model){
         model.addAttribute("movie" ,new Movie());
-        return "view/addmovieform";
+        return "views/addmovieform";
     }
 
     @PostMapping("/addmovie")
@@ -47,7 +45,7 @@ public class MovieController {
             model.addAttribute("movie" ,new Movie());
 
         }
-        return "view/addmovieform";
+        return "views/addmovieform";
 
     }
 
