@@ -15,33 +15,11 @@ public class Movie {
     String format;
     String description;
     Date releasedate;
+    String shelf;
+    int price;
     Date rentdate;
     @ManyToOne(targetEntity = Customer.class)
     Customer customer;
-
-    public Date getReleasedate() {
-        return releasedate;
-    }
-
-    public void setReleasedate(Date releasedate) {
-        this.releasedate = releasedate;
-    }
-
-    public Date getRentdate() {
-        return rentdate;
-    }
-
-    public void setRentdate(Date rentdate) {
-        this.rentdate = rentdate;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     public String getMid() {
         return mid;
@@ -81,5 +59,45 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getReleasedate() {
+        return releasedate;
+    }
+
+    public void setReleasedate(Date releasedate) {
+        this.releasedate = releasedate;
+    }
+
+    public String getShelf() {
+        return shelf;
+    }
+
+    public void setShelf(String shelf) {
+        this.shelf = shelf;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Date getRentdate() {
+        return rentdate;
+    }
+
+    public void setRentdate(Date rentdate) {
+        this.rentdate = rentdate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
