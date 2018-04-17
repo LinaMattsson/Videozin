@@ -18,7 +18,7 @@ public class Movie {
     String shelf;
     int price;
     Date rentdate;
-    @ManyToOne(targetEntity = Customer.class)
+    @ManyToOne
     Customer customer;
 
     public String getMid() {

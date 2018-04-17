@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
 
+<form action="#" th:action="@{/addmovie}" th:object="${movie}" method="post">
+    Film id:<br>
+    <input type="text" th:field="*{mid}">
+    <br>
+    <br>
+    Titel:<br>
+    <input type="text" th:field="*{title}">
+    <br><br>
+    Genre:<br>
+    <input type="text" th:field="*{category}">
+    <br><br>
+    Format:<br>
+    <input type="text" th:field="*{format}">
+    <br><br>
+    Beskrivning:<br>
+    <input type="text" th:field="*{description}">
+    <br><br>
+    Release datum:<br>
+    <input type="date" th:field="*{releasedate}">
+    <br><br>
+    Hyllplats:<br>
+    <input type="text" th:field="*{shelf}">
+    <br><br>Pris:<br>
+    <input type="text" th:field="*{price}">
+    <br><br>
+    <input type="submit" value="Lägg till">
+</form>
+<br><br><br>
+<div th:text="${message}"></div>
 </body>
 </html>
