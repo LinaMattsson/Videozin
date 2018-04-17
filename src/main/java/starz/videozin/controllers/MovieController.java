@@ -16,6 +16,8 @@ public class MovieController {
 
     @Autowired
     MovieRepository movieRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @GetMapping("/addmovie")
     public String addmovie(Model model){
@@ -24,7 +26,7 @@ public class MovieController {
     }
 
     @PostMapping("/addmovie")
-    public String submitmovie(@ModelAttribute Movie movie, Model model, CustomerRepository customerRepository){
+    public String submitmovie(@ModelAttribute Movie movie, Model model){
         if(movie.getMid().equals("")||
                 movie.getTitle().equals("")||
                 movie.getCategory().equals("")||
@@ -38,7 +40,7 @@ public class MovieController {
 
         }
        else {
-            movie.setCustomer(customerRepository.findById("0").get());
+           // movie.setCustomer(customerRepository.findById("0").get());
             movieRepository.save(movie);
             model.addAttribute("message", movie.getTitle()+" är tillagd!");
 

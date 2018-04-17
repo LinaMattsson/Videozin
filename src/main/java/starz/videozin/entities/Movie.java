@@ -1,10 +1,7 @@
 package starz.videozin.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 public class Movie {
@@ -19,6 +16,7 @@ public class Movie {
     int price;
     Date rentdate;
     @ManyToOne
+    @JoinColumn
     Customer customer;
 
     public String getMid() {
