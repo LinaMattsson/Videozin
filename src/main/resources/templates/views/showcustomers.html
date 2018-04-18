@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
+<h1>Kunder</h1>
+<h2>Sök kund</h2>
+<form action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
+    Personnummer: <br>
+    <input type="text" th:field="*{ssn}"><br>
+    Förnamn: <br>
+    <input type="text" th:field="*{fName}"><br>
+    Efternamn: <br>
+    <input type="text" th:field="*{lName}"><br>
+    Telefonnummer: <br>
+    <input type="text" th:field="*{phone}"><br><br>
+    <input type="submit" value="Sök">
+</form>
 
+<h2>Resultat</h2>
+<table>
+    <tr> <th>Personnr</th>
+        <th>Förnamn</th>
+        <th>Efternamn</th>
+        <th>Adress</th>
+        <th>Postnr</th>
+        <th>Stad</th>
+        <th>Land</th>
+        <th>Telefonnr</th>
+        <th>Email</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <th:block th:each="Customer: ${customerlist}"><tr>
+        <td th:text="${Customer.ssn}"></td>
+        <td th:text="${Customer.fName}"></td>
+        <td th:text="${Customer.lName}"></td>
+        <td th:text="${Customer.address}"></td>
+        <td th:text="${Customer.zip}"></td>
+        <td th:text="${Customer.city}"></td>
+        <td th:text="${Customer.country}"></td>
+        <td th:text="${Customer.phone}"></td>
+        <td th:text="${Customer.mail}"></td>
+        <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
+        <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
+    </tr></th:block>
+
+</table>
 </body>
 </html>
