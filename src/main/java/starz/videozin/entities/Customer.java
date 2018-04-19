@@ -27,6 +27,7 @@ public class Customer {
         this.rentedMovies = rentedMovies;
     }
 
+
     public String getSsn() {
         return ssn;
     }
