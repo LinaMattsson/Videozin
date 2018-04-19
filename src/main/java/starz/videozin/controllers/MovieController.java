@@ -3,10 +3,8 @@ package starz.videozin.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
 import starz.videozin.repositories.MovieRepository;
 
@@ -44,6 +42,18 @@ public class MovieController {
             model.addAttribute("movie", new Movie());
         }
         return "views/addmovieform";
+    }
+    @GetMapping("/editmovie/{mid}")
+    public String editMovie(@PathVariable String mid, Model model){
+        model.addAttribute("movie", movieRepository.findById(mid).get());
+        return "views/addmovieform";
+    }
+
+    @GetMapping("/deletemovie/{mid}")
+    public String deleteMovie(@PathVariable String mid, Model model){
+        movieRepository.deleteById(mid);
+        model.addAttribute("movie", new Movie());
+        return "views/index";
     }
      
 
