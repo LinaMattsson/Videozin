@@ -7,17 +7,20 @@
 <body>
 <a href="/">Start</a>
 <a href="/addmovie">Lägg till film</a>
-<a href="/addmovie">Lägg till kund</a>
+<a href="/addcustomer">Lägg till kund</a>
+<a href="/showcustomer">Sök kund</a>
 
 
 
 <h1>Filmer</h1>
 <h2>Sök Film</h2>
 <form action="#" th:action="@{/showmovie/result/}" th:object="${movie}" method="get">
+    Film id: <br>
+    <input type="text" th:field="*{mid}"><br>
     Titel: <br>
     <input type="text" th:field="*{title}"><br>
-    Utgivningsår: <br>
-    <input type="text" th:field="*{releasedate}"><br>
+  <!-- Utgivningsår: <br>
+    <input type="text" th:field="*{releasedate}"><br>-->
     Kategori: <br>
     <input type="text" th:field="*{category}"><br>
     <br>
@@ -47,8 +50,8 @@
         <td th:text="${movie.shelf}"></td>
         <td th:text="${movie.price}"></td>
         <td th:text="${movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
-        <td><a th:href="@{/editmovie/}+${movie.ssn}">Ändra</a></td>
-        <td><a th:href="@{/deletemovie/}+${movie.ssn}">Ta bort</a></td>
+      <td><a th:href="@{/editmovie/}+${movie.mid}">Ändra</a></td>
+        <td><a th:href="@{/deletemovie/}+${movie.mid}">Ta bort</a></td>
     </tr></th:block>
 
 </table>
