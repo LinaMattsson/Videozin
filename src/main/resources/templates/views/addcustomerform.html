@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<a href="/">Start</a>
+<a href="/addmovie">Lägg till film</a>
+<a href="/addcustomer">Lägg till kund</a>
+<a href="/showcustomer">Sök kund</a>
+
+<h1>Lägg till kund</h1>
+<br>
+<form action="#" th:action="@{/addcustomer}" th:object="${customer}" method="post">
+    Personnummer:<br>
+    <input type="text" th:field="*{ssn}">
+    <br>
+    <br>
+    Förnamn:<br>
+    <input type="text" th:field="*{fName}">
+    <br><br>
+    Efternamn:<br>
+    <input type="text" th:field="*{lName}">
+    <br><br>
+    Adress:<br>
+    <input type="text" th:field="*{address}">
+    <br><br>
+    Postnummer:<br>
+    <input type="text" th:field="*{zip}">
+    <br><br>
+    Stad:<br>
+    <input type="text" th:field="*{city}">
+    <br><br>
+    Land:<br>
+    <input type="text" th:field="*{country}">
+    <br><br>
+    Telefonnummer:<br>
+    <input type="text" th:field="*{phone}">
+    <br><br>
+    Email:<br>
+    <input type="text" th:field="*{mail}">
+    <br><br>
+    <input type="submit" value="Lägg till">
+</form>
+<div th:text="${message}"></div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<a href="/">Start</a>
+<a href="/addmovie">Lägg till film</a>
+<a href="/addcustomer">Lägg till kund</a>
+<a href="/showcustomer">Sök kund</a>
+
+
+
+<h1>Filmer</h1>
+<h2>Sök Film</h2>
+<form action="#" th:action="@{/showmovie/result/}" th:object="${movie}" method="get">
+    Film id: <br>
+    <input type="text" th:field="*{mid}"><br>
+    Titel: <br>
+    <input type="text" th:field="*{title}"><br>
+  <!-- Utgivningsår: <br>
+    <input type="text" th:field="*{releasedate}"><br>-->
+    Kategori: <br>
+    <input type="text" th:field="*{category}"><br>
+    <br>
+    <input type="submit" value="Sök">
+</form>
+
+<h2>Resultat</h2>
+<table>
+    <tr>
+        <th>FilmId</th>
+        <th>Titel</th>
+        <th>Kategori</th>
+        <th>Format</th>
+        <th>Beskrivning</th>
+        <th>Utgivningsår</th>
+        <th>Hyllplats</th>
+        <th>Pris</th>
+        <th>Uthyrd</th>
+    </tr>
+    <th:block th:each="movie: ${movielist}"><tr>
+        <td th:text="${movie.mid}"></td>
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.category}"></td>
+        <td th:text="${movie.format}"></td>
+        <td th:text="${movie.description}"></td>
+        <td th:text="${movie.releasedate}"></td>
+        <td th:text="${movie.shelf}"></td>
+        <td th:text="${movie.price}"></td>
+        <td th:text="${movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
+      <td><a th:href="@{/editmovie/}+${movie.mid}">Ändra</a></td>
+        <td><a th:href="@{/deletemovie/}+${movie.mid}">Ta bort</a></td>
+    </tr></th:block>
+
+</table>
+
+
+</body>
+</html>
