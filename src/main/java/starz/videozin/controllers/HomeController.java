@@ -5,11 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
 import starz.videozin.repositories.CustomerRepository;
 import starz.videozin.repositories.MovieRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -18,7 +21,6 @@ public class HomeController {
     CustomerRepository customerRepository;
     @Autowired
     MovieRepository movieRepository;
-
 
     @GetMapping("/")
     public String home(Model model){
@@ -44,5 +46,10 @@ public class HomeController {
         return "views/index";
     }
 
+    @GetMapping("/rentmovies/{rentmovielist}")
+    public String rentMovies(@ModelAttribute List<Movie> rentmovielist, @ModelAttribute Customer customer, Model model){
+        model.addAttribute(rentmovielist);
+        return "views/index";
+    }
 
 }

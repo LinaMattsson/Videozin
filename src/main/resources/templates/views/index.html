@@ -10,8 +10,14 @@
 <a href="/addcustomer">Lägg till kund</a>
 <a href="/showcustomer">Sök kund</a>
 
+<h1>Hyr ut film</h1>
+<form action="#" th:action="@{/showmovie/addtocart/}" th:object="${movie}">
+    <label for="customer">Kund:</label>
+    <input type="text" th:field="${customer}" id="customer"><br>
+    <input type="submit" value="lägg till film">
+</form>
 
-
+<p th:text="${message}"></p>
 <h1>Filmer</h1>
 <h2>Sök Film</h2>
 <form action="#" th:action="@{/showmovie/result/}" th:object="${movie}" method="get">
