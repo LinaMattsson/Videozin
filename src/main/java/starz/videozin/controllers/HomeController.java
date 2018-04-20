@@ -21,29 +21,35 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(Model model) {
         model.addAttribute("movie", new Movie());
         return "views/index";
     }
 
     @GetMapping("/showmovie/result/")
     public String showMovie(@ModelAttribute Movie movie, Model model) {
-        model.addAttribute("movie",new Movie());
+        model.addAttribute("movie", new Movie());
 
-        if(movie.getTitle().equals("") && movie.getMid().equals("")/*&& movie.getReleasedate().equals("")*/ && movie.getCategory().equals("")){
+        if (movie.getTitle().equals("") && movie.getMid().equals("")&& movie.getCategory().equals("")/*&& movie.getReleasedate().equals("")*/ && movie.getCategory().equals("")) {
             model.addAttribute("movielist", movieRepository.findAll());
-        }
-        else if(!movie.getMid().equals("")){
+        } else if (!movie.getMid().equals("")) {
             model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
-        }
+        } else if (!movie.getTitle().equals("")&& movie.getCategory().equals("")){
+            List<Movie> movieList = movieRepository.findMovieByTitle(movie.getTitle());
+            movieList = movieList.stream()
+                    .filter(streamMovie -> streamMovie.getCategory().equals(movie.getCategory()))
+                    .collect(Collectors.toList());
 
+            model.addAttribute("movielist", movieList);
+        }
         else if (!movie.getTitle().equals("")) {
             model.addAttribute("movielist", movieRepository.findMovieByTitle(movie.getTitle()));
+        } else if (!movie.getCategory().equals("")) {
+            model.addAttribute("movielist", movieRepository.findMovieByCategory(movie.getCategory()));
         }
 
         return "views/index";
     }
-
 
 
 }
