@@ -37,7 +37,7 @@ public class CustomerController {
                 customer.getCountry().equals("")||
                 customer.getPhone().equals("")||
                 customer.getMail().equals("")) {
-            model.addAttribute("message", "Du måste fylla i alla fält");
+            model.addAttribute("message", "Du måste fylla i alla fält!");
         }
 
        else  {
