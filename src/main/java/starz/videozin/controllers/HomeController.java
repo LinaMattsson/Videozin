@@ -29,9 +29,9 @@ public class HomeController {
     @Autowired
     MovieRepository movieRepository;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("cart", cart);
+    @GetMapping("/start")
+    public String home(Model model){
+        model.addAttribute("cart",cart);
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
         return "views/index";
