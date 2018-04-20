@@ -10,18 +10,30 @@
 <a href="/addcustomer">Lägg till kund</a>
 <a href="/showcustomer">Sök kund</a>
 
-<table th:if="${activecustomer.rentedMovies != null}">
+<table th:if="${not #lists.isEmpty(activecustomer.rentedMovies)}">
     <tr>
         <td><h2>Hyrda filmer</h2></td>
     </tr>
     <tr>
         <th>Titel</th>
     </tr>
-    <th:block th:each="movie : ${activecustomer.rentedMovies}">
+    <th:block th:each="rentedmovie : ${activecustomer.rentedMovies}">
         <tr>
-            <td th:text="${movie.title}"></td>
+            <td th:text="${rentedmovie.title}"></td>
+            <td>
+                <form action="#" th:action="@{/activecustomer/returnmovie/}+${rentedmovie.mid}" method="POST">
+                    <input type="submit" value="Returnera">
+                </form>
+            </td>
         </tr>
     </th:block>
+    <tr>
+        <td>
+            <form action="#" th:action="@{/activecustomer/returnallmovies/}" method="POST">
+                <input type="submit" value="Returnera Alla">
+            </form>
+        </td>
+    </tr>
 </table>
 
 <table th:if="${not #lists.isEmpty(cart)}">
@@ -121,8 +133,12 @@
             <td th:text="${Movie.shelf}"></td>
             <td th:text="${Movie.price}"></td>
             <td th:text="${Movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
-            <td th:if="${Movie.customer!=null}" th:text="${Movie.customer.ssn}"></td>
-            <td><a th:href="@{/showrentcustomer/}+${Movie.mid}">Visa kund</a></td>
+            <td>
+                <a th:if="${Movie.customer!=null}" th:href="@{/showrentcustomer/}+${Movie.customer.ssn}">
+                    <p th:if="${Movie.customer!=null}" th:text="${Movie.customer.ssn}"></p>
+                </a>
+            </td>
+            <!--<td><a th:href="@{/showrentcustomer/}+${Movie.mid}">Visa kund</a></td>-->
             <td><a th:href="@{/editmovie/}+${Movie.mid}">Ändra</a></td>
             <td><a th:href="@{/deletemovie/}+${Movie.mid}">Ta bort</a></td>
             <td th:if="${activecustomer.ssn != null}">
@@ -134,17 +150,18 @@
         <td>
             <table>
                 <tr>
-                <th:block th:each="page : ${pages}">
-                    <td>
-                    <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'" th:object="${movie}"
-                          method="GET">
-                        <input type="text" th:field="*{mid}" style="display:none"><br>
-                        <input type="text" th:field="*{title}" style="display:none"><br>
-                        <input type="text" th:field="*{category}" style="display:none"><br>
-                        <input type="submit" th:value="${page}">
-                    </form>
-                    </td>
-                </th:block>
+                    <th:block th:each="page : ${pages}">
+                        <td>
+                            <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'"
+                                  th:object="${movie}"
+                                  method="GET">
+                                <input type="text" th:field="*{mid}" style="display:none"><br>
+                                <input type="text" th:field="*{title}" style="display:none"><br>
+                                <input type="text" th:field="*{category}" style="display:none"><br>
+                                <input type="submit" th:value="${page}">
+                            </form>
+                        </td>
+                    </th:block>
                 </tr>
             </table>
         </td>

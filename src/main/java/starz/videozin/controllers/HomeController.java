@@ -37,25 +37,25 @@ public class HomeController {
         return "views/index";
     }
 
-    @GetMapping("/showmovie/result/{currentpage}/{moviein}/")
-    public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movieout, Model model) {
+    @GetMapping("/showmovie/result/{currentpage}/{movie}/")
+    public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) {
         int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
         List<String> pages = new ArrayList<>();
 
         model.addAttribute("cart", cart);
-        model.addAttribute("movie", movieout);
+        model.addAttribute("movie", movie);
         model.addAttribute("activecustomer", activecustomer);
 
-        if (movieout.getTitle().equals("") && movieout.getMid().equals("") && movieout.getCategory().equals("")) {
+        if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")) {
             movielist = movieRepository.findAll();
-        } else if (!movieout.getMid().equals("")) {
-            model.addAttribute("movielist", movieRepository.findById(movieout.getMid()).get());
+        } else if (!movie.getMid().equals("")) {
+            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
             return "views/index";
-        } else if (!movieout.getCategory().equals("")) {
-            movielist = movieRepository.findMovieByCategory(movieout.getCategory());
-        } else if (!movieout.getTitle().equals("")) {
-            movielist = movieRepository.findMovieByTitle(movieout.getTitle());
+        } else if (!movie.getCategory().equals("")) {
+            movielist = movieRepository.findMovieByCategory(movie.getCategory());
+        } else if (!movie.getTitle().equals("")) {
+            movielist = movieRepository.findMovieByTitle(movie.getTitle());
         }
 
         int totalpages = (int) Math.ceil(movielist.size() / pageSize);
@@ -70,9 +70,7 @@ public class HomeController {
         }
 
         model.addAttribute("movielist", movielist);
-        model.addAttribute("totalpages", totalpages);
         model.addAttribute("pages", pages);
-        model.addAttribute("currentpage",currentpage);
         return "views/index";
     }
 
@@ -89,7 +87,12 @@ public class HomeController {
 
     @GetMapping("/activecustomer/addmovie/{mid}")
     public String addToCartLink(@PathVariable String mid, Model model) {
-        if (movieRepository.findById(mid).isPresent() && movieRepository.findById(mid).get().getRentdate() == null)
+        boolean duplicate = false;
+        for(Movie m : cart){
+            if(m.getMid().equals(mid))
+                duplicate=true;
+        }
+        if (!duplicate && movieRepository.findById(mid).isPresent() && movieRepository.findById(mid).get().getRentdate() == null)
             cart.add(movieRepository.findById(mid).get());
         else model.addAttribute("message", "Denna filmen är redan uthyrd!");
         model.addAttribute("activecustomer", activecustomer);
@@ -102,7 +105,12 @@ public class HomeController {
 
     @PostMapping("/activecustomer/addmovie/")
     public String addToCartForm(@ModelAttribute Movie movie, Model model) {
-        if (movieRepository.findById(movie.getMid()).isPresent() && movieRepository.findById(movie.getMid()).get().getRentdate() == null)
+        boolean duplicate = false;
+        for(Movie m : cart){
+            if(m.getMid().equals(movie.getMid()))
+                duplicate=true;
+        }
+        if (!duplicate && movieRepository.findById(movie.getMid()).isPresent() && movieRepository.findById(movie.getMid()).get().getRentdate() == null)
             cart.add(movieRepository.findById(movie.getMid()).get());
         else if (!movieRepository.findById(movie.getMid()).isPresent())
             model.addAttribute("message", "Detta FilmID finns inte");
@@ -112,7 +120,6 @@ public class HomeController {
         model.addAttribute("movie", new Movie());
         return "views/index";
     }
-
 
     @GetMapping("/activecustomer/deletefromcart/{dropmoviefromcart}")
     public String deleteFromCart(@PathVariable String dropmoviefromcart, Model model) {
@@ -169,5 +176,40 @@ public class HomeController {
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
+    }
+
+    @PostMapping("activecustomer/returnmovie/{mid}")
+    public String returnMovie(@PathVariable String mid, Model model){
+        movieRepository.getOne(mid).setRentdate(null);
+        movieRepository.getOne(mid).setCustomer(null);
+        movieRepository.save(movieRepository.getOne(mid));
+        activecustomer = customerRepository.getOne(activecustomer.getSsn());
+        model.addAttribute("cart", cart);
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("activecustomer", activecustomer);
+        return "views/index";
+    }
+
+    @PostMapping("activecustomer/returnallmovies/")
+    public String returnMovie(Model model){
+        List<Movie> movielist = activecustomer.getRentedMovies();
+        for(Movie m : movielist){
+            movieRepository.getOne(m.getMid()).setRentdate(null);
+            movieRepository.getOne(m.getMid()).setCustomer(null);
+        }
+        movielist.clear();
+        movieRepository.saveAll(movielist);
+        activecustomer = customerRepository.getOne(activecustomer.getSsn());
+        model.addAttribute("cart", cart);
+        model.addAttribute("movie", new Movie());
+        model.addAttribute("activecustomer", activecustomer);
+        return "views/index";
+    }
+
+    @GetMapping("/showrentcustomer/{ssn}")
+    public String showCustomer(@PathVariable String ssn, Model model){
+        model.addAttribute("customerlist",customerRepository.getOne(ssn));
+        model.addAttribute("customer", customerRepository.getOne(ssn));
+        return "views/showcustomers";
     }
 }
