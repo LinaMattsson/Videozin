@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
+import starz.videozin.repositories.CustomerRepository;
 import starz.videozin.repositories.MovieRepository;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public class MovieController {
 
     @Autowired
     MovieRepository movieRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @GetMapping("/addmovie")
     public String addMovie(Model model) {
@@ -55,6 +58,28 @@ public class MovieController {
         model.addAttribute("movie", new Movie());
         return "views/index";
     }
+    @GetMapping("showmovie/rented")
+    public String rentedMovies(Model model){
+        model.addAttribute("movielist", movieRepository.findMovieByRented());
+        model.addAttribute("movie", new Movie());
+        return "views/index";
+    }
+//    @GetMapping("/showrentcustomer/{mid}")
+//    public String showrentcustomer(@PathVariable String mid, Model model){
+//        Movie mov = new Movie();
+//        mov = movieRepository.findById(mid).get();
+//        String id=null;
+//        if(mov.getCustomer()!=null) {
+//            id = mov.getCustomer().getSsn();
+//        }
+//        if(movieRepository.findMovieByRented()!=null) {
+//            model.addAttribute("movielist", movieRepository.findMovieByRented());
+//           model.addAttribute("movie", movieRepository.findById(mid).get());
+//            if(id!=null){
+//            model.addAttribute("customer", customerRepository.findById(id).get());
+//        }}
+//        return "views/index";
+//    }
      
 
 }
