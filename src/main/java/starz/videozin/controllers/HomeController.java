@@ -38,8 +38,8 @@ public class HomeController {
     }
 
     @GetMapping("/showmovie/result/{currentpage}/{moviein}/")
-    public String showMovie(@PathVariable int currentpage, @PathVariable Movie moviein, @ModelAttribute Movie movieout, Model model) {
-        int pageSize = 10;
+    public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movieout, Model model) {
+        int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
         List<String> pages = new ArrayList<>();
 
@@ -65,7 +65,7 @@ public class HomeController {
                 .limit(pageSize)
                 .collect(Collectors.toList());
 
-        for (int i = 0; i < totalpages; i++) {
+        for (int i = 0; i < totalpages+1; i++) {
             pages.add(Integer.toString(i));
         }
 

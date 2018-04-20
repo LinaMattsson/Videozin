@@ -131,15 +131,23 @@
         </tr>
     </th:block>
     <tr>
-        <th:block th:each="page : ${pages}">
-            <td>
-                <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'" th:object="${movie}" method="GET">
-                    <input type="text" th:field="*{mid}" style="display:none"><br>
-                    <input type="text" th:field="*{title}" style="display:none"><br>
-                    <input type="text" th:field="*{category}" style="display:none"><br>
-                    <input type="submit" th:value="${page}">
-                </form></td>
-        </th:block>
+        <td>
+            <table>
+                <tr>
+                <th:block th:each="page : ${pages}">
+                    <td>
+                    <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'" th:object="${movie}"
+                          method="GET">
+                        <input type="text" th:field="*{mid}" style="display:none"><br>
+                        <input type="text" th:field="*{title}" style="display:none"><br>
+                        <input type="text" th:field="*{category}" style="display:none"><br>
+                        <input type="submit" th:value="${page}">
+                    </form>
+                    </td>
+                </th:block>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 
