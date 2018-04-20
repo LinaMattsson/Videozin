@@ -5,35 +5,35 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="#" th:action="@{/}" method="post">
-        <div>
-            <label for="username">Användare</label>:
-            <input type="text"
-                   id="username"
-                   name="username"
-                   class="form-control"
-                   autofocus="autofocus"
-                   placeholder="Användare">
-        </div>
-        <div>
-            <label for="password">Lösenord</label>:
-            <input type="password"
-                   id="password"
-                   name="password"
-                   class="form-control"
-                   placeholder="Lösenord">
-        </div>
-        <div>
-            <div class="row">
-                <div>
-                    <input type="submit"
-                           name="login-submit"
-                           id="login-submit"
-                           class="form-control btn btn-info"
-                           value="Logga in">
-                </div>
-            </div>
-        </div>
-    </form>
+<form action="#" th:action="@{/}" method="post">
+    <h2>Logga in:</h2>
+    <div th:if="${param.error}">
+        Felaktig användare eller lösenord!
+    </div>
+    <br>
+    <div>
+        <label for="username">Användare</label>:
+        <input type="text"
+               id="username"
+               name="username"
+               autofocus="autofocus"
+               placeholder="Användare"
+        >
+    </div>
+    <div>
+        <label for="password">Lösenord</label>:
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Lösenord"
+        >
+    </div>
+    <div>
+        <input type="submit"
+               value="Logga in"
+        >
+    </div>
+
+</form>
 </body>
 </html>

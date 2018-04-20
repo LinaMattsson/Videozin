@@ -18,12 +18,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/")
                 .defaultSuccessUrl("/start")
-                .failureUrl("/login?error")
+                .failureUrl("/?error")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -31,7 +32,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/***").hasRole("ADMIN")
                 .anyRequest().authenticated();
     }
-
 
     @Bean
     protected UserDetailsService userDetails() {
