@@ -10,6 +10,20 @@
 <a href="/addcustomer">Lägg till kund</a>
 <a href="/showcustomer">Sök kund</a>
 
+<table th:if="${activecustomer.rentedMovies != null}">
+    <tr>
+        <td><h2>Hyrda filmer</h2></td>
+    </tr>
+    <tr>
+        <th>Titel</th>
+    </tr>
+    <th:block th:each="movie : ${activecustomer.rentedMovies}">
+    <tr>
+        <td th:text="${movie.title}"></td>
+    </tr>
+    </th:block>
+</table>
+
 <table th:if="${not #lists.isEmpty(cart)}">
     <tr>
         <td><h2>Filmer att hyra</h2></td>

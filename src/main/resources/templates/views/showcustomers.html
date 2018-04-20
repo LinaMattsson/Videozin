@@ -37,6 +37,7 @@
         <th>Email</th>
         <th></th>
         <th></th>
+        <th>Hyrda filmer</th>
     </tr>
     <th:block th:each="Customer: ${customerlist}"><tr>
         <td th:text="${Customer.ssn}"></td>
@@ -50,7 +51,12 @@
         <td th:text="${Customer.mail}"></td>
         <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
         <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
-    </tr></th:block>
+        <th:block th:each="movie : ${Customer.rentedMovies}">
+        <td th:text="${movie.mid}"></td>
+        <td th:text="${movie.title}"></td>
+        </th:block>
+        </th:block>
+    </tr>
 
 </table>
 </body>
