@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
@@ -18,9 +18,9 @@
         <th>Titel</th>
     </tr>
     <th:block th:each="movie : ${activecustomer.rentedMovies}">
-    <tr>
-        <td th:text="${movie.title}"></td>
-    </tr>
+        <tr>
+            <td th:text="${movie.title}"></td>
+        </tr>
     </th:block>
 </table>
 
@@ -79,7 +79,7 @@
 <p th:text="${message}"></p>
 <h1>Filmer</h1>
 <h2>Sök Film</h2>
-<form action="#" th:action="@{/showmovie/result/}" th:object="${movie}" method="get">
+<form action="#" th:action="@{/showmovie/result/0/}+${movie}+'/'" th:object="${movie}" method="GET">
     Film id: <br>
     <input type="text" th:field="*{mid}"><br>
     Titel: <br>
@@ -110,35 +110,37 @@
         <th>Status</th>
 
     </tr>
-    <th:block th:each="movie : ${movielist}">
+    <th:block th:each="Movie : ${movielist}">
         <tr>
-            <td th:text="${movie.mid}"></td>
-            <td th:text="${movie.title}"></td>
-            <td th:text="${movie.category}"></td>
-            <td th:text="${movie.format}"></td>
-            <td th:text="${movie.description}"></td>
-            <td th:text="${movie.releasedate}"></td>
-            <td th:text="${movie.shelf}"></td>
-            <td th:text="${movie.price}"></td>
-            <td th:text="${movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
-            <!--<td th:if="${movie.customer.getSsn != null}" th:text="${movie.customer.getSsn}"></td>-->
-            <td th:if="${movie.customer!=null}" th:text="${movie.customer.ssn}"></td>
-            <td><a th:href="@{/showrentcustomer/}+${movie.mid}">Visa kund</a></td>
-            <td><a th:href="@{/editmovie/}+${movie.mid}">Ändra</a></td>
-            <td><a th:href="@{/deletemovie/}+${movie.mid}">Ta bort</a></td>
+            <td th:text="${Movie.mid}"></td>
+            <td th:text="${Movie.title}"></td>
+            <td th:text="${Movie.category}"></td>
+            <td th:text="${Movie.format}"></td>
+            <td th:text="${Movie.description}"></td>
+            <td th:text="${Movie.releasedate}"></td>
+            <td th:text="${Movie.shelf}"></td>
+            <td th:text="${Movie.price}"></td>
+            <td th:text="${Movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
+            <td th:if="${Movie.customer!=null}" th:text="${Movie.customer.ssn}"></td>
+            <td><a th:href="@{/showrentcustomer/}+${Movie.mid}">Visa kund</a></td>
+            <td><a th:href="@{/editmovie/}+${Movie.mid}">Ändra</a></td>
+            <td><a th:href="@{/deletemovie/}+${Movie.mid}">Ta bort</a></td>
             <td th:if="${activecustomer.ssn != null}">
-                <a th:href="@{/activecustomer/addmovie/}+${movie.mid}">Hyr</a>
+                <a th:href="@{/activecustomer/addmovie/}+${Movie.mid}">Hyr</a>
             </td>
         </tr>
     </th:block>
-
-    <!--<tr><th>Titel</th><th>Hyrd av</th></tr>-->
-    <!--<th:block th:each="movie: ${movielist}">-->
-    <!--<tr><td th:text="${movie.title}"></td>-->
-    <!--<td th:text="${movie.customer.ssn}"></td></tr>-->
-    <!--</th:block>-->
-
-
+    <tr>
+        <th:block th:each="page : ${pages}">
+            <td>
+                <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'" th:object="${movie}" method="GET">
+                    <input type="text" th:field="*{mid}" style="display:none"><br>
+                    <input type="text" th:field="*{title}" style="display:none"><br>
+                    <input type="text" th:field="*{category}" style="display:none"><br>
+                    <input type="submit" th:value="${page}">
+                </form></td>
+        </th:block>
+    </tr>
 </table>
 
 

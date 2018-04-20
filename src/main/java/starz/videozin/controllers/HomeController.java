@@ -1,6 +1,7 @@
 package starz.videozin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import starz.videozin.repositories.MovieRepository;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static starz.videozin.VideozinApplication.activecustomer;
@@ -34,22 +37,42 @@ public class HomeController {
         return "views/index";
     }
 
-    @GetMapping("/showmovie/result/")
-    public String showMovie(@ModelAttribute Movie movie, Model model) {
+    @GetMapping("/showmovie/result/{currentpage}/{moviein}/")
+    public String showMovie(@PathVariable int currentpage, @PathVariable Movie moviein, @ModelAttribute Movie movieout, Model model) {
+        int pageSize = 10;
+        List<Movie> movielist = new ArrayList<>();
+        List<String> pages = new ArrayList<>();
+
         model.addAttribute("cart", cart);
-        model.addAttribute("movie", new Movie());
+        model.addAttribute("movie", movieout);
         model.addAttribute("activecustomer", activecustomer);
 
-        if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")) {
-            model.addAttribute("movielist", movieRepository.findAll());
-        } else if (!movie.getMid().equals("")) {
-            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
-        } else if (!movie.getCategory().equals("")) {
-            model.addAttribute("movielist", movieRepository.findMovieByCategory(movie.getCategory()));
-        } else if (!movie.getTitle().equals("")) {
-            model.addAttribute("movielist", movieRepository.findMovieByTitle(movie.getTitle()));
+        if (movieout.getTitle().equals("") && movieout.getMid().equals("") && movieout.getCategory().equals("")) {
+            movielist = movieRepository.findAll();
+        } else if (!movieout.getMid().equals("")) {
+            model.addAttribute("movielist", movieRepository.findById(movieout.getMid()).get());
+            return "views/index";
+        } else if (!movieout.getCategory().equals("")) {
+            movielist = movieRepository.findMovieByCategory(movieout.getCategory());
+        } else if (!movieout.getTitle().equals("")) {
+            movielist = movieRepository.findMovieByTitle(movieout.getTitle());
         }
 
+        int totalpages = (int) Math.ceil(movielist.size() / pageSize);
+
+        movielist = movielist.stream()
+                .skip(currentpage * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < totalpages; i++) {
+            pages.add(Integer.toString(i));
+        }
+
+        model.addAttribute("movielist", movielist);
+        model.addAttribute("totalpages", totalpages);
+        model.addAttribute("pages", pages);
+        model.addAttribute("currentpage",currentpage);
         return "views/index";
     }
 
