@@ -34,7 +34,7 @@ public class HomeController {
             model.addAttribute("movielist", movieRepository.findAll());
         }
         else if(!movie.getMid().equals("")){
-            model.addAttribute("movielist", movieRepository.findById(movie.getMid()));
+            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
         }
 
         else if (!movie.getTitle().equals("")) {
@@ -43,6 +43,7 @@ public class HomeController {
 
         return "views/index";
     }
+
 
 
 }

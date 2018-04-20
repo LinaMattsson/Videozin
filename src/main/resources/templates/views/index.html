@@ -26,7 +26,10 @@
     <br>
     <input type="submit" value="Sök">
 </form>
-
+<br>
+<form th:action="@{/showmovie/rented}" method="get">
+<input type="submit" value="Visa uthyrda filmer">
+</form>
 <h2>Resultat</h2>
 <table>
     <tr>
@@ -38,9 +41,10 @@
         <th>Utgivningsår</th>
         <th>Hyllplats</th>
         <th>Pris</th>
-        <th>Uthyrd</th>
+        <th>Status</th>
+
     </tr>
-    <th:block th:each="movie: ${movielist}"><tr>
+    <th:block th:each="movie : ${movielist}"><tr>
         <td th:text="${movie.mid}"></td>
         <td th:text="${movie.title}"></td>
         <td th:text="${movie.category}"></td>
@@ -50,9 +54,19 @@
         <td th:text="${movie.shelf}"></td>
         <td th:text="${movie.price}"></td>
         <td th:text="${movie.rentdate} ? 'uthyrd' : 'tillgänglig'"></td>
-      <td><a th:href="@{/editmovie/}+${movie.mid}">Ändra</a></td>
+        <!--<td th:if="${movie.customer.getSsn != null}" th:text="${movie.customer.getSsn}"></td>-->
+        <td th:if="${movie.customer!=null}" th:text="${movie.customer.ssn}"></td>
+        <td><a th:href="@{/showrentcustomer/}+${movie.mid}">Visa kund</a></td>
+        <td><a th:href="@{/editmovie/}+${movie.mid}">Ändra</a></td>
         <td><a th:href="@{/deletemovie/}+${movie.mid}">Ta bort</a></td>
     </tr></th:block>
+
+    <!--<tr><th>Titel</th><th>Hyrd av</th></tr>-->
+    <!--<th:block th:each="movie: ${movielist}">-->
+        <!--<tr><td th:text="${movie.title}"></td>-->
+        <!--<td th:text="${movie.customer.ssn}"></td></tr>-->
+    <!--</th:block>-->
+
 
 </table>
 
