@@ -52,18 +52,8 @@ public class MovieController {
         return "views/addmovieform";
     }
 
-    @GetMapping("/deletemovie/{mid}")
-    public String deleteMovie(@PathVariable String mid, Model model){
-        movieRepository.deleteById(mid);
-        model.addAttribute("movie", new Movie());
-        return "views/index";
-    }
-    @GetMapping("showmovie/rented")
-    public String rentedMovies(Model model){
-        model.addAttribute("movielist", movieRepository.findMovieByRented());
-        model.addAttribute("movie", new Movie());
-        return "views/index";
-    }
+
+
 //    @GetMapping("/showrentcustomer/{mid}")
 //    public String showrentcustomer(@PathVariable String mid, Model model){
 //        Movie mov = new Movie();
