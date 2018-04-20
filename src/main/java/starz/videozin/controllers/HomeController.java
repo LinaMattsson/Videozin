@@ -44,9 +44,11 @@ public class HomeController {
             model.addAttribute("movielist", movieRepository.findAll());
         }
         else if(!movie.getMid().equals("")){
-            model.addAttribute("movielist", movieRepository.findById(movie.getMid()));
+            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
         }
-
+        else if (!movie.getCategory().equals("")) {
+            model.addAttribute("movielist", movieRepository.findMovieByCategory(movie.getCategory()));
+        }
         else if (!movie.getTitle().equals("")) {
             model.addAttribute("movielist", movieRepository.findMovieByTitle(movie.getTitle()));
         }
@@ -123,6 +125,23 @@ public class HomeController {
     public String dispatchCustomer(Model model){
         cart.clear();
         activecustomer = new Customer();
+        model.addAttribute("cart",cart);
+        model.addAttribute("activecustomer",activecustomer);
+        model.addAttribute("movie", new Movie());
+        return "views/index";
+    }
+
+    @GetMapping("/deletemovie/{mid}")
+    public String deleteMovie(@PathVariable String mid, Model model){
+        movieRepository.deleteById(mid);
+        model.addAttribute("cart",cart);
+        model.addAttribute("activecustomer",activecustomer);
+        model.addAttribute("movie", new Movie());
+        return "views/index";
+    }
+    @GetMapping("showmovie/rented")
+    public String rentedMovies(Model model) {
+        model.addAttribute("movielist", movieRepository.findMovieByRented());
         model.addAttribute("cart",cart);
         model.addAttribute("activecustomer",activecustomer);
         model.addAttribute("movie", new Movie());
