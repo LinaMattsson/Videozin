@@ -39,7 +39,6 @@ public class MovieController {
             model.addAttribute("message", "Du måste fylla i alla fält");
             model.addAttribute("movie", movie);
         } else {
-            // movie.setmovie(movieRepository.findById("0").get());
             movieRepository.save(movie);
             model.addAttribute("message", movie.getTitle() + " är tillagd!");
             model.addAttribute("movie", new Movie());
