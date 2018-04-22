@@ -14,7 +14,7 @@
 <a href="/logout">Logga ut</a>
 
 <!--Tabell som visar vilka filmer kunden redan har hyrt-->
-<table th:if="${activecustomer.rentedMovies != null}">
+<!--<table th:if="${activecustomer.rentedMovies != null}">-->
 <table th:if="${not #lists.isEmpty(activecustomer.rentedMovies)}">
     <tr>
         <td><h2>Hyrda filmer</h2></td>
