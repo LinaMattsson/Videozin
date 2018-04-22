@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
+import starz.videozin.handlers.PagingHandler;
 import starz.videozin.repositories.CustomerRepository;
 import starz.videozin.repositories.MovieRepository;
 
@@ -30,18 +31,17 @@ public class HomeController {
     MovieRepository movieRepository;
 
     @GetMapping("/start")
-    public String home(Model model){
-        model.addAttribute("cart",cart);
+    public String home(Model model) {
+        model.addAttribute("cart", cart);
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
         return "views/index";
     }
 
-    @GetMapping("/showmovie/result/{currentpage}/{movie}/")
+    @GetMapping("/showmovie/result/{currentpage}")
     public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) {
         int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
-        List<String> pages = new ArrayList<>();
 
         model.addAttribute("cart", cart);
         model.addAttribute("movie", movie);
@@ -50,27 +50,20 @@ public class HomeController {
         if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")) {
             movielist = movieRepository.findAll();
         } else if (!movie.getMid().equals("")) {
-            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
-            return "views/index";
+            movielist.add(movieRepository.getOne(movie.getMid()));
         } else if (!movie.getCategory().equals("")) {
             movielist = movieRepository.findMovieByCategory(movie.getCategory());
         } else if (!movie.getTitle().equals("")) {
             movielist = movieRepository.findMovieByTitle(movie.getTitle());
         }
 
-        int totalpages = (int) Math.ceil(movielist.size() / pageSize);
+        model.addAttribute("pages", PagingHandler.getPageList(movielist, pageSize));
 
-        movielist = movielist.stream()
-                .skip(currentpage * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-
-        for (int i = 0; i < totalpages+1; i++) {
-            pages.add(Integer.toString(i));
-        }
+        movielist = PagingHandler.getPagedMovieList(movielist,currentpage,pageSize);
 
         model.addAttribute("movielist", movielist);
-        model.addAttribute("pages", pages);
+        model.addAttribute("currentpage", currentpage);
+        model.addAttribute("paging", "result");
         return "views/index";
     }
 
@@ -88,9 +81,9 @@ public class HomeController {
     @GetMapping("/activecustomer/addmovie/{mid}")
     public String addToCartLink(@PathVariable String mid, Model model) {
         boolean duplicate = false;
-        for(Movie m : cart){
-            if(m.getMid().equals(mid))
-                duplicate=true;
+        for (Movie m : cart) {
+            if (m.getMid().equals(mid))
+                duplicate = true;
         }
         if (!duplicate && movieRepository.findById(mid).isPresent() && movieRepository.findById(mid).get().getRentdate() == null)
             cart.add(movieRepository.findById(mid).get());
@@ -106,9 +99,9 @@ public class HomeController {
     @PostMapping("/activecustomer/addmovie/")
     public String addToCartForm(@ModelAttribute Movie movie, Model model) {
         boolean duplicate = false;
-        for(Movie m : cart){
-            if(m.getMid().equals(movie.getMid()))
-                duplicate=true;
+        for (Movie m : cart) {
+            if (m.getMid().equals(movie.getMid()))
+                duplicate = true;
         }
         if (!duplicate && movieRepository.findById(movie.getMid()).isPresent() && movieRepository.findById(movie.getMid()).get().getRentdate() == null)
             cart.add(movieRepository.findById(movie.getMid()).get());
@@ -169,17 +162,28 @@ public class HomeController {
         return "views/index";
     }
 
-    @GetMapping("showmovie/rented")
-    public String rentedMovies(Model model) {
-        model.addAttribute("movielist", movieRepository.findMovieByRented());
+    @GetMapping("showmovie/rented/{currentpage}/")
+    public String rentedMovies(@PathVariable int currentpage, Model model) {
+        int pageSize = 5;
+        List<Movie> movielist = movieRepository.findMovieByRented();
+
+        model.addAttribute("pages", PagingHandler.getPageList(movielist, pageSize));
+
+        movielist = PagingHandler.getPagedMovieList(movielist,currentpage,pageSize);
+
+        model.addAttribute("currentpage", currentpage);
+
+        model.addAttribute("movielist", movielist);
         model.addAttribute("cart", cart);
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
+        model.addAttribute("paging", "rented");
+
         return "views/index";
     }
 
     @PostMapping("activecustomer/returnmovie/{mid}")
-    public String returnMovie(@PathVariable String mid, Model model){
+    public String returnMovie(@PathVariable String mid, Model model) {
         movieRepository.getOne(mid).setRentdate(null);
         movieRepository.getOne(mid).setCustomer(null);
         movieRepository.save(movieRepository.getOne(mid));
@@ -191,9 +195,9 @@ public class HomeController {
     }
 
     @PostMapping("activecustomer/returnallmovies/")
-    public String returnMovie(Model model){
+    public String returnMovie(Model model) {
         List<Movie> movielist = activecustomer.getRentedMovies();
-        for(Movie m : movielist){
+        for (Movie m : movielist) {
             movieRepository.getOne(m.getMid()).setRentdate(null);
             movieRepository.getOne(m.getMid()).setCustomer(null);
         }
@@ -207,8 +211,8 @@ public class HomeController {
     }
 
     @GetMapping("/showrentcustomer/{ssn}")
-    public String showCustomer(@PathVariable String ssn, Model model){
-        model.addAttribute("customerlist",customerRepository.getOne(ssn));
+    public String showCustomer(@PathVariable String ssn, Model model) {
+        model.addAttribute("customerlist", customerRepository.getOne(ssn));
         model.addAttribute("customer", customerRepository.getOne(ssn));
         return "views/showcustomers";
     }
