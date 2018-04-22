@@ -154,8 +154,7 @@ public class HomeController {
     public String lateMovies(Model model){
         List<Movie> lateList = movieRepository.findMovieByRented();
         lateList = lateList.stream()
-                .filter(m -> m.getRentdate()!= Date.valueOf(LocalDate.now().minusDays(1)))
-                .filter(m -> m.getRentdate()!= Date.valueOf(LocalDate.now()))
+                .filter(m -> m.getRentdate().before(Date.valueOf(LocalDate.now().minusDays(1))))
                 .collect(Collectors.toList());
         model.addAttribute("movielist", lateList);
         model.addAttribute("cart",cart);
