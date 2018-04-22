@@ -60,7 +60,7 @@ public class CustomerController {
             model.addAttribute("customerlist", customerRepository.findAll());
         }
         else if (!customer.getSsn().equals("")) {
-            model.addAttribute("customerlist", customerRepository.findById(customer.getSsn())); //.get()
+            model.addAttribute("customerlist", customerRepository.getOne(customer.getSsn()));
         }
         else if (!customer.getPhone().equals("")){
             model.addAttribute("customerlist", customerRepository.findByphone(customer.getPhone()));

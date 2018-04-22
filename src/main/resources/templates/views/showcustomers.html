@@ -9,6 +9,7 @@
 <a href="/addmovie">Lägg till film</a>
 <a href="/addcustomer">Lägg till kund</a>
 <a href="/showcustomer">Sök kund</a>
+<a href="/logout"></a>
 
 <h1>Kunder</h1>
 <h2>Sök kund</h2>
@@ -26,7 +27,8 @@
 
 <h2>Resultat</h2>
 <table>
-    <tr> <th>Personnr</th>
+    <tr>
+        <th>Personnr</th>
         <th>Förnamn</th>
         <th>Efternamn</th>
         <th>Adress</th>
@@ -39,23 +41,24 @@
         <th></th>
         <th>Hyrda filmer</th>
     </tr>
-    <th:block th:each="Customer: ${customerlist}"><tr>
-        <td th:text="${Customer.ssn}"></td>
-        <td th:text="${Customer.fName}"></td>
-        <td th:text="${Customer.lName}"></td>
-        <td th:text="${Customer.address}"></td>
-        <td th:text="${Customer.zip}"></td>
-        <td th:text="${Customer.city}"></td>
-        <td th:text="${Customer.country}"></td>
-        <td th:text="${Customer.phone}"></td>
-        <td th:text="${Customer.mail}"></td>
-        <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
-        <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
-        <th:block th:each="movie : ${Customer.rentedMovies}">
-        <td th:text="${movie.mid}"></td>
-        <td th:text="${movie.title}"></td>
-        </th:block>
-        </th:block>
+    <th:block th:each="Customer: ${customerlist}">
+        <tr>
+            <td th:text="${Customer.ssn}"></td>
+            <td th:text="${Customer.fName}"></td>
+            <td th:text="${Customer.lName}"></td>
+            <td th:text="${Customer.address}"></td>
+            <td th:text="${Customer.zip}"></td>
+            <td th:text="${Customer.city}"></td>
+            <td th:text="${Customer.country}"></td>
+            <td th:text="${Customer.phone}"></td>
+            <td th:text="${Customer.mail}"></td>
+            <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
+            <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
+            <th:block th:each="movie : ${Customer.rentedMovies}">
+                <td th:text="${movie.mid}"></td>
+                <td th:text="${movie.title}"></td>
+            </th:block>
+    </th:block>
     </tr>
 
 </table>
