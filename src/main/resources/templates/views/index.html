@@ -14,7 +14,6 @@
 <a href="/logout">Logga ut</a>
 
 <!--Tabell som visar vilka filmer kunden redan har hyrt-->
-<table th:if="${activecustomer.rentedMovies != null}">
 <table th:if="${not #lists.isEmpty(activecustomer.rentedMovies)}">
     <tr>
         <td><h2>Hyrda filmer</h2></td>
@@ -112,7 +111,7 @@
 <form th:action="@{/showmovie/rented/0/}" method="get">
     <input type="submit" value="Visa uthyrda filmer">
 </form>
-<form th:action="@{/showmovie/late}" method=""get>
+<form th:action="@{/showmovie/late/0/}" method=""get>
     <input type="submit" value="Visa försenade filmer">
 </form>
 <br><br>
@@ -170,7 +169,7 @@
                             <input type="submit" value="<">
                         </form>
                     </td>
-                    <th:block th:if="${#lists.size(pages) != 0}" th:each="page : ${pages}">
+                    <th:block th:if="${#lists.size(pages) > 1}" th:each="page : ${pages}">
                         <td>
                             <form action="#" th:action="@{/showmovie/}+${paging}+'/'+${page}+'/'"
                                   th:object="${movie}"
@@ -178,7 +177,7 @@
                                 <input type="text" th:field="*{mid}" style="display:none"><br>
                                 <input type="text" th:field="*{title}" style="display:none"><br>
                                 <input type="text" th:field="*{category}" style="display:none"><br>
-                                <input type="submit" th:value="${page}" th:style="${currentpage}==${page}? 'color:red' : 'color:black'">
+                                <input type="submit" th:value="${page}+1" th:style="${currentpage}==${page}? 'color:red' : 'color:black'">
                             </form>
                         </td>
                     </th:block>
