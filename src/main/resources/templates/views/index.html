@@ -162,7 +162,7 @@
                             <input type="submit" value="<">
                         </form>
                     </td>
-                    <th:block th:each="page : ${pages}">
+                    <th:block th:if="${#lists.size(pages) > pagesize}" th:each="page : ${pages}">
                         <td>
                             <form action="#" th:action="@{/showmovie/result/}+${page}+'/'"
                                   th:object="${movie}"

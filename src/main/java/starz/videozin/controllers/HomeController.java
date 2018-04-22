@@ -50,8 +50,7 @@ public class HomeController {
         if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")) {
             movielist = movieRepository.findAll();
         } else if (!movie.getMid().equals("")) {
-            model.addAttribute("movielist", movieRepository.findById(movie.getMid()).get());
-            return "views/index";
+            movielist.add(movieRepository.getOne(movie.getMid()));
         } else if (!movie.getCategory().equals("")) {
             movielist = movieRepository.findMovieByCategory(movie.getCategory());
         } else if (!movie.getTitle().equals("")) {
@@ -73,6 +72,7 @@ public class HomeController {
         model.addAttribute("movielist", movielist);
         model.addAttribute("pages", pages);
         model.addAttribute("currentpage", currentpage);
+        model.addAttribute("pagesize", pageSize);
         return "views/index";
     }
 
