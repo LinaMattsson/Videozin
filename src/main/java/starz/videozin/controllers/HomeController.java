@@ -37,7 +37,7 @@ public class HomeController {
         return "views/index";
     }
 
-    @GetMapping("/showmovie/result/{currentpage}/{movie}/")
+    @GetMapping("/showmovie/result/{currentpage}/")
     public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) {
         int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
@@ -58,19 +58,21 @@ public class HomeController {
             movielist = movieRepository.findMovieByTitle(movie.getTitle());
         }
 
-        int totalpages = (int) Math.ceil(movielist.size() / pageSize);
+        int totalpages = (int) Math.ceil((movielist.size()-1) / pageSize);
+        for (int i = 0; i < totalpages+1; i++) {
+            pages.add(Integer.toString(i));
+        }
 
         movielist = movielist.stream()
                 .skip(currentpage * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
 
-        for (int i = 0; i < totalpages+1; i++) {
-            pages.add(Integer.toString(i));
-        }
+
 
         model.addAttribute("movielist", movielist);
         model.addAttribute("pages", pages);
+        model.addAttribute("currentpage", currentpage);
         return "views/index";
     }
 

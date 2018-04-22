@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
 <a href="/">Start</a>
@@ -92,7 +93,7 @@
 <p th:text="${message}"></p>
 <h1>Filmer</h1>
 <h2>Sök Film</h2>
-<form action="#" th:action="@{/showmovie/result/0/}+${movie}+'/'" th:object="${movie}" method="GET">
+<form action="#" th:action="@{/showmovie/result/0/}" th:object="${movie}" method="GET">
     Film id: <br>
     <input type="text" th:field="*{mid}"><br>
     Titel: <br>
@@ -151,18 +152,38 @@
         <td>
             <table>
                 <tr>
+                    <td>
+                        <form th:if="${currentpage != 0}" action="#" th:action="@{/showmovie/result/}+${currentpage-1}+'/'"
+                              th:object="${movie}"
+                              method="GET">
+                            <input type="text" th:field="*{mid}" style="display:none"><br>
+                            <input type="text" th:field="*{title}" style="display:none"><br>
+                            <input type="text" th:field="*{category}" style="display:none"><br>
+                            <input type="submit" value="<">
+                        </form>
+                    </td>
                     <th:block th:each="page : ${pages}">
                         <td>
-                            <form action="#" th:action="@{/showmovie/result/}+${page}+'/'+${movie}+'/'"
+                            <form action="#" th:action="@{/showmovie/result/}+${page}+'/'"
                                   th:object="${movie}"
                                   method="GET">
                                 <input type="text" th:field="*{mid}" style="display:none"><br>
                                 <input type="text" th:field="*{title}" style="display:none"><br>
                                 <input type="text" th:field="*{category}" style="display:none"><br>
-                                <input type="submit" th:value="${page}">
+                                <input type="submit" th:value="${page}" th:style="${currentpage}==${page}? 'color:red' : 'color:black'">
                             </form>
                         </td>
                     </th:block>
+                    <td>
+                        <form th:if="${currentpage != #lists.size(pages)-1}" action="#" th:action="@{/showmovie/result/}+${currentpage+1}+'/'"
+                              th:object="${movie}"
+                              method="GET">
+                            <input type="text" th:field="*{mid}" style="display:none"><br>
+                            <input type="text" th:field="*{title}" style="display:none"><br>
+                            <input type="text" th:field="*{category}" style="display:none"><br>
+                            <input type="submit" value=">">
+                        </form>
+                    </td>
                 </tr>
             </table>
         </td>
