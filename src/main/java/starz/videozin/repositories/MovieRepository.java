@@ -17,5 +17,6 @@ public interface MovieRepository extends JpaRepository<Movie, String>{ //Linas: 
     List<Movie> findMovieByReleasedate(@Param("releasedate") Date releasedate);
     @Query("select m from Movie m where rentdate is not null")
     List<Movie> findMovieByRented();
+    List<Movie> findMovieByRentdate(Date date);
 
 }

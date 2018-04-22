@@ -181,6 +181,19 @@ public class HomeController {
 
         return "views/index";
     }
+    @GetMapping("showmovie/late")
+    public String lateMovies(Model model){
+        List<Movie> lateList = movieRepository.findMovieByRented();
+        lateList = lateList.stream()
+                .filter(m -> m.getRentdate().before(Date.valueOf(LocalDate.now().minusDays(1))))
+                .collect(Collectors.toList());
+        model.addAttribute("movielist", lateList);
+        model.addAttribute("cart",cart);
+        model.addAttribute("activecustomer",activecustomer);
+        model.addAttribute("movie", new Movie());
+
+       return "views/index";
+    }
 
     @PostMapping("activecustomer/returnmovie/{mid}")
     public String returnMovie(@PathVariable String mid, Model model) {
