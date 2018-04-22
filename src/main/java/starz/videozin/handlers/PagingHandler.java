@@ -13,7 +13,7 @@ public class PagingHandler {
         int totalpages = (int) Math.ceil((movielist.size() - 1) / pageSize);
 
         for (int i = 0; i < totalpages + 1; i++) {
-            pages.add(Integer.toString(i));
+            pages.add(Integer.toString(i+1));
         }
         return pages;
     }
