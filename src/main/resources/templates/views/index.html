@@ -5,11 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+<!--Navbar för att komma till de olika sidorna-->
 <a href="/">Start</a>
 <a href="/addmovie">Lägg till film</a>
 <a href="/addcustomer">Lägg till kund</a>
 <a href="/showcustomer">Sök kund</a>
 
+<!--Tabell som visar vilka filmer kunden redan har hyrt-->
 <table th:if="${activecustomer.rentedMovies != null}">
     <tr>
         <td><h2>Hyrda filmer</h2></td>
@@ -24,6 +26,7 @@
     </th:block>
 </table>
 
+<!--Filmer som är tillagda på kunden för att eventuellt hyra-->
 <table th:if="${not #lists.isEmpty(cart)}">
     <tr>
         <td><h2>Filmer att hyra</h2></td>
@@ -55,6 +58,7 @@
     </tr>
 </table>
 
+<!--input för att välja vilken kund som ska hyra-->
 <div th:if="${activecustomer.ssn == null}">
     <h1>Hyr ut film</h1>
     <form action="#" th:action="@{/activecustomer/}" th:object="${activecustomer}" method="POST">
@@ -63,7 +67,7 @@
         <input type="submit" value="OK">
     </form>
 </div>
-
+<!--Lägger till filmer på kunden-->
 <div th:if="${activecustomer.ssn != null}">
     <h1>Hyr ut film</h1>
     <span th:if="${activecustomer.ssn != null}" th:text="'Hyr till: '+${activecustomer.ssn}"></span>
@@ -75,7 +79,7 @@
         <input type="submit" value="lägg till film">
     </form>
 </div>
-
+<!--SÖkning efter vilka filmer som finns-->
 <p th:text="${message}"></p>
 <h1>Filmer</h1>
 <h2>Sök Film</h2>
@@ -92,6 +96,9 @@
 <br>
 <form th:action="@{/showmovie/rented}" method="get">
     <input type="submit" value="Visa uthyrda filmer">
+</form>
+<form th:action="@{/showmovie/late}" method=""get>
+    <input type="submit" value="Visa försenade filmer">
 </form>
 <br><br>
 <table th:if="${movielist != null}">

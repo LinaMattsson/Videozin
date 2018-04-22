@@ -14,6 +14,9 @@ import starz.videozin.repositories.MovieRepository;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static starz.videozin.VideozinApplication.activecustomer;
@@ -146,5 +149,19 @@ public class HomeController {
         model.addAttribute("activecustomer",activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
+    }
+    @GetMapping("showmovie/late")
+    public String lateMovies(Model model){
+        List<Movie> lateList = movieRepository.findMovieByRented();
+        lateList = lateList.stream()
+                .filter(m -> m.getRentdate()!= Date.valueOf(LocalDate.now().minusDays(1)))
+                .filter(m -> m.getRentdate()!= Date.valueOf(LocalDate.now()))
+                .collect(Collectors.toList());
+        model.addAttribute("movielist", lateList);
+        model.addAttribute("cart",cart);
+        model.addAttribute("activecustomer",activecustomer);
+        model.addAttribute("movie", new Movie());
+
+       return "views/index";
     }
 }
