@@ -104,7 +104,7 @@
     <input type="submit" value="Sök">
 </form>
 <br>
-<form th:action="@{/showmovie/rented}" method="get">
+<form th:action="@{/showmovie/rented/0/}" method="get">
     <input type="submit" value="Visa uthyrda filmer">
 </form>
 <br><br>
@@ -153,7 +153,7 @@
             <table>
                 <tr>
                     <td>
-                        <form th:if="${currentpage != 0}" action="#" th:action="@{/showmovie/result/}+${currentpage-1}+'/'"
+                        <form th:if="${currentpage != 0}" action="#" th:action="@{/showmovie/}+${paging}+'/'+${currentpage-1}+'/'"
                               th:object="${movie}"
                               method="GET">
                             <input type="text" th:field="*{mid}" style="display:none"><br>
@@ -162,9 +162,9 @@
                             <input type="submit" value="<">
                         </form>
                     </td>
-                    <th:block th:if="${#lists.size(pages) > pagesize}" th:each="page : ${pages}">
+                    <th:block th:if="${#lists.size(pages) != 0}" th:each="page : ${pages}">
                         <td>
-                            <form action="#" th:action="@{/showmovie/result/}+${page}+'/'"
+                            <form action="#" th:action="@{/showmovie/}+${paging}+'/'+${page}+'/'"
                                   th:object="${movie}"
                                   method="GET">
                                 <input type="text" th:field="*{mid}" style="display:none"><br>
@@ -175,7 +175,7 @@
                         </td>
                     </th:block>
                     <td>
-                        <form th:if="${currentpage != #lists.size(pages)-1}" action="#" th:action="@{/showmovie/result/}+${currentpage+1}+'/'"
+                        <form th:if="${currentpage != #lists.size(pages)-1}" action="#" th:action="@{/showmovie/}+${paging}+'/'+${currentpage+1}+'/'"
                               th:object="${movie}"
                               method="GET">
                             <input type="text" th:field="*{mid}" style="display:none"><br>
