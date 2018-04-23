@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-
+<a href="/">Start</a>
+<a href="/addmovie">Lägg till film</a>
+<a href="/addcustomer">Lägg till kund</a>
+<a href="/showcustomer">Sök kund</a>
+<a href="/logout"></a>
+<br>
+<br>
+Hello you are in the showmovies.html!
+<br>
+<h1>Uthyrda filmer</h1>
+<table>
+    <tr>
+        <th>FilmId</th>
+        <th>Titel</th>
+        <th>Kategori</th>
+        <th>Datum för uthyrning</th>
+    </tr>
+    <th:block th:each="movie: ${movielist}"><tr>
+        <td th:text="${movie.mid}"></td>
+        <td th:text="${movie.title}"></td>
+        <td th:text="${movie.category}"></td>
+        <td th:text="${movie.rentdate}"></td>
+    </tr></th:block>
+</table>
 </body>
 </html>

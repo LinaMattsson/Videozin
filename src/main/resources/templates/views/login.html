@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+</head>
+<body>
+<form action="#" th:action="@{/}" method="post">
+    <h2>Logga in:</h2>
+    <div th:if="${param.error}">
+        Felaktig användare eller lösenord!
+    </div>
+    <br>
+    <div>
+        <label for="username">Användare</label>:
+        <input type="text"
+               id="username"
+               name="username"
+               autofocus="autofocus"
+               placeholder="Användare"
+        >
+    </div>
+    <div>
+        <label for="password">Lösenord</label>:
+        <input type="password"
+               id="password"
+               name="password"
+               placeholder="Lösenord"
+        >
+    </div>
+    <div>
+        <input type="submit"
+               value="Logga in"
+        >
+    </div>
+
+</form>
+</body>
+</html>
