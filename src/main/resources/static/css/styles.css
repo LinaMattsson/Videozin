@@ -17,8 +17,27 @@ h1 {
 
 .navWrapper {
     margin-bottom: 20px;
+    border-bottom: #0400ff Solid 1px;
 }
 
 .bg-fadedNew {
-        background-color: #f7f7f7;
+        /*background-color: #f7f7f7;*/
+    background-color: rgba(246, 88, 175, 0.5);
+    background: rgba(246, 88, 175, 0.5);
+    color: rgba(246, 88, 175, 0.5);
+}
+
+#NavLogo {
+    width: 15%;
+    margin-right: 20px;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
 }
