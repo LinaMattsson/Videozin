@@ -181,12 +181,19 @@ public class HomeController {
 
         return "views/index";
     }
-    @GetMapping("showmovie/late")
-    public String lateMovies(Model model){
+    @GetMapping("showmovie/late/{currentpage}")
+    public String lateMovies(@PathVariable int currentpage, Model model){
         List<Movie> lateList = movieRepository.findMovieByRented();
+        int pageSize = 5;
+
         lateList = lateList.stream()
                 .filter(m -> m.getRentdate().before(Date.valueOf(LocalDate.now().minusDays(1))))
                 .collect(Collectors.toList());
+
+        model.addAttribute("pages", PagingHandler.getPageList(lateList, pageSize));
+
+        model.addAttribute("currentpage", currentpage);
+        lateList = PagingHandler.getPagedMovieList(lateList,currentpage,pageSize);
         model.addAttribute("movielist", lateList);
         model.addAttribute("cart",cart);
         model.addAttribute("activecustomer",activecustomer);
