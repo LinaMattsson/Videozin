@@ -41,3 +41,13 @@ footer {
     background-color: #efefef;
     text-align: center;
 }
+
+.aHover:hover {
+    text-shadow: 1px 1px 2px #0400ff;
+    transition: 0.3s;
+}
+
+.aHover {
+    font-size: 1.3em;
+    font-family: fantasy;
+}
