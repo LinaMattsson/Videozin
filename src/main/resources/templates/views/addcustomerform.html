@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -15,67 +15,72 @@
             <span class="navbar-toggler-icon"></span>
         </button>
        <!-- <a class="navbar-brand" href="#">HyrDinFilm</a> -->
+
         <img th:src="@{/images/videoZinV2.png}" id="NavLogo">
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Start</a>
+                    <a class="nav-link aHover" href="/start">Start</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/addmovie">Lägg till film</a>
+                    <a class="nav-link aHover" href="/addmovie">Lägg till film</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/addcustomer">Lägg till kund<span class="sr-only">(current)</span></a>
+                    <a class="nav-link aHover" href="/addcustomer">Lägg till kund<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/showcustomer">Sök kund</a>
+                    <a class="nav-link aHover" href="/showcustomer">Sök kund</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/logout">Logga ut</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
 
-<!--
-<a href="/">Start</a>
-<a href="/addmovie">Lägg till film</a>
-<a href="/addcustomer">Lägg till kund</a>
-<a href="/showcustomer">Sök kund</a> -->
-<a href="/logout">Logga ut</a>
+<div class="container">
+    <form id="contact" action="#" th:action="@{/addcustomer}" th:object="${customer}" method="post">
+        <h3>Lägg till kund</h3>
+        <br>
+        Personnummer:<br>
+        <input type="text" th:field="*{ssn}">
+        <br>
+        <br>
+        Förnamn:<br>
+        <input type="text" th:field="*{fName}">
+        <br><br>
+        Efternamn:<br>
+        <input type="text" th:field="*{lName}">
+        <br><br>
+        Adress:<br>
+        <input type="text" th:field="*{address}">
+        <br><br>
+        Postnummer:<br>
+        <input type="text" th:field="*{zip}">
+        <br><br>
+        Stad:<br>
+        <input type="text" th:field="*{city}">
+        <br><br>
+        Land:<br>
+        <input type="text" th:field="*{country}">
+        <br><br>
+        Telefonnummer:<br>
+        <input type="text" th:field="*{phone}">
+        <br><br>
+        Email:<br>
+        <input type="text" th:field="*{mail}">
+        <br><br>
+        <!--<input type="submit" value="Lägg till">-->
+        <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Lägg till</button>
+        <br><br>
 
-<h1>Lägg till kund</h1>
-<br>
-<form action="#" th:action="@{/addcustomer}" th:object="${customer}" method="post">
-    Personnummer:<br>
-    <input type="text" th:field="*{ssn}">
-    <br>
-    <br>
-    Förnamn:<br>
-    <input type="text" th:field="*{fName}">
-    <br><br>
-    Efternamn:<br>
-    <input type="text" th:field="*{lName}">
-    <br><br>
-    Adress:<br>
-    <input type="text" th:field="*{address}">
-    <br><br>
-    Postnummer:<br>
-    <input type="text" th:field="*{zip}">
-    <br><br>
-    Stad:<br>
-    <input type="text" th:field="*{city}">
-    <br><br>
-    Land:<br>
-    <input type="text" th:field="*{country}">
-    <br><br>
-    Telefonnummer:<br>
-    <input type="text" th:field="*{phone}">
-    <br><br>
-    Email:<br>
-    <input type="text" th:field="*{mail}">
-    <br><br>
-    <input type="submit" value="Lägg till">
-</form>
-<div th:text="${message}"></div>
+        <div th:text="${message}"></div>
+    </form>
+</div>
+
+<footer>This page was designed by VideoZinCompany - 2018</footer>
+
 </body>
 </html>

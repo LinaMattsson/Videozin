@@ -3,18 +3,42 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
 <!--Navbar för att komma till de olika sidorna-->
-<a href="/">Start</a>
-<a href="/addmovie">Lägg till film</a>
-<a href="/addcustomer">Lägg till kund</a>
-<a href="/showcustomer">Sök kund</a>
-<a href="/logout">Logga ut</a>
+<div class="navWrapper">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-fadedNew">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--<a class="navbar-brand" href="#">HyrDinFilm</a>-->
+
+        <img th:src="@{/images/videoZinV2.png}" id="NavLogo">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link aHover" href="/start">Start<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/addmovie">Lägg till film</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/addcustomer">Lägg till kund</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/showcustomer">Sök kund</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/logout">Logga ut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <!--Tabell som visar vilka filmer kunden redan har hyrt-->
 <!--<table th:if="${activecustomer.rentedMovies != null}">-->
