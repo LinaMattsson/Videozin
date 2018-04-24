@@ -14,7 +14,6 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!--<a class="navbar-brand" href="#">HyrDinFilm</a>-->
 
         <img th:src="@{/images/videoZinV2.png}" id="NavLogo">
 
@@ -40,6 +39,7 @@
     </nav>
 </div>
 
+<!-- Sök kund formuläret -->
 <div class="container">
     <form id="contact" action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
         <h3>Sök kund</h3>
@@ -55,44 +55,6 @@
         <input type="submit" value="Sök">
     </form>
 </div>
-<!--
-<table>
-    <tr>
-        <th>Personnr</th>
-        <th>Förnamn</th>
-        <th>Efternamn</th>
-        <th>Adress</th>
-        <th>Postnr</th>
-        <th>Stad</th>
-        <th>Land</th>
-        <th>Telefonnr</th>
-        <th>Email</th>
-        <th></th>
-        <th></th>
-        <th>Hyrda filmer</th>
-    </tr>
-    <th:block th:each="Customer: ${customerlist}">
-        <tr>
-            <td th:text="${Customer.ssn}"></td>
-            <td th:text="${Customer.fName}"></td>
-            <td th:text="${Customer.lName}"></td>
-            <td th:text="${Customer.address}"></td>
-            <td th:text="${Customer.zip}"></td>
-            <td th:text="${Customer.city}"></td>
-            <td th:text="${Customer.country}"></td>
-            <td th:text="${Customer.phone}"></td>
-            <td th:text="${Customer.mail}"></td>
-            <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
-            <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
-            <th:block th:each="movie : ${Customer.rentedMovies}">
-                <td th:text="${movie.mid}"></td>
-                <td th:text="${movie.title}"></td>
-            </th:block>
-        </tr>
-    </th:block>
-
-
-</table>-->
 
 <!-- Bootstrap Table -->
 <h2 style="text-align: center; color: #aa02b5; font-family: unset;">Resultat</h2>

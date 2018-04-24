@@ -9,6 +9,11 @@ h1 {
     font-family: "Arial Narrow";
 }
 
+.h1Special {
+    font-family: "Arial Narrow";
+    padding-top: 25px;
+}
+
 .formWrapper {
     width: 800px;
     padding-left: 100px;
@@ -66,6 +71,42 @@ footer {
     position: absolute;
     left: 882px;
     top: 340px;
+}
+
+.containerWrapper {
+    background-color: #F9F9F9;
+    max-width: 700px;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+    height: max-content;
+    margin-top: 80px;
+}
+
+.containerWrapper2 {
+    background-color: #F9F9F9;
+    max-width: 700px;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+    height: max-content;
+}
+
+.containerWrapper3 {
+    background-color: #F9F9F9;
+    max-width: 700px;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+    height: max-content;
+    margin-bottom: 100px;
+}
+
+.containerSpecial {
+    max-width: 630px;
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
 }
 
 /* Form */
