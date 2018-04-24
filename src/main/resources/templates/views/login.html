@@ -9,7 +9,7 @@
 <body>
 
 <!-- Original login -->
-<form action="#" th:action="@{/}" method="post">
+<!--<form action="#" th:action="@{/}" method="post">
     <h2>Logga in:</h2>
     <div th:if="${param.error}">
         Felaktig användare eller lösenord!
@@ -38,34 +38,39 @@
         >
     </div>
 
-</form>
+</form> -->
 
 <!-- New login -->
 <div class="login">
     <div class="login-screen">
         <div class="app-title">
-            <h1>Login</h1>
+            <h1 id="h1login">Login</h1>
         </div>
 
         <div class="login-form">
-            <div class="control-group">
-                <input type="text" class="login-field" value="" placeholder="username" id="login-name">
-                <label class="login-field-icon fui-user" for="login-name"></label>
-            </div>
+            <form action="#" th:action="@{/}" method="post">
+                <div class="control-group">
+                    <input type="text" class="login-field" value="" name="username" placeholder="Användare" id="username">
+                    <label class="login-field-icon fui-user" for="username"></label>
+                </div>
 
-            <div class="control-group">
-                <input type="password" class="login-field" value="" placeholder="password" id="login-pass">
-                <label class="login-field-icon fui-lock" for="login-pass"></label>
-            </div>
+                <div class="control-group">
+                    <input type="password" class="login-field" value="" name="password" placeholder="Lösenord" id="password">
+                    <label class="login-field-icon fui-lock" for="password"></label>
+                </div>
 
-            <a class="btn btn-primary btn-large btn-block" href="#">login</a>
-            <a class="login-link" href="#">Lost your password?</a>
+                <!-- <a class="btn btn-primary btn-large btn-block" href="#" type="submit">login</a> -->
+
+                <input class="login-field-input" type="submit" value="Logga in">
+
+                <div th:if="${param.error}" style="color: Red">
+                    Felaktig användare eller lösenord!
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-
-<h2 id="green">hahaha</h2>
 
 </body>
 </html>
