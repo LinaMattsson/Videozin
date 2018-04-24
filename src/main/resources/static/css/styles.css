@@ -32,6 +32,10 @@ h1 {
     margin-right: 20px;
 }
 
+.table {
+    background-color: #F9F9F9;
+    color: Black;
+}
 footer {
     position: relative;
     right: 0;
@@ -87,7 +91,7 @@ footer {
     background: #F9F9F9;
     border-radius: 20px;
     padding: 25px;
-    margin: 110px 0;
+    margin: 80px 0;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 

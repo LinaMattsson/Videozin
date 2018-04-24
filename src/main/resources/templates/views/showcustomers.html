@@ -40,21 +40,22 @@
     </nav>
 </div>
 
-<h1>Kunder</h1>
-<h2>Sök kund</h2>
-<form action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
-    Personnummer: <br>
-    <input type="text" th:field="*{ssn}"><br>
-    Förnamn: <br>
-    <input type="text" th:field="*{fName}"><br>
-    Efternamn: <br>
-    <input type="text" th:field="*{lName}"><br>
-    Telefonnummer: <br>
-    <input type="text" th:field="*{phone}"><br><br>
-    <input type="submit" value="Sök">
-</form>
-
-<h2>Resultat</h2>
+<div class="container">
+    <form id="contact" action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
+        <h3>Sök kund</h3>
+        <br>
+        Personnummer: <br>
+        <input type="text" th:field="*{ssn}"><br>
+        Förnamn: <br>
+        <input type="text" th:field="*{fName}"><br>
+        Efternamn: <br>
+        <input type="text" th:field="*{lName}"><br>
+        Telefonnummer: <br>
+        <input type="text" th:field="*{phone}"><br><br>
+        <input type="submit" value="Sök">
+    </form>
+</div>
+<!--
 <table>
     <tr>
         <th>Personnr</th>
@@ -87,9 +88,54 @@
                 <td th:text="${movie.mid}"></td>
                 <td th:text="${movie.title}"></td>
             </th:block>
+        </tr>
     </th:block>
-    </tr>
 
+
+</table>-->
+
+<!-- Bootstrap Table -->
+<h2 style="text-align: center; color: #aa02b5; font-family: unset;">Resultat</h2>
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Personnr</th>
+            <th scope="col">Förnamn</th>
+            <th scope="col">Efternamn</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Postnr</th>
+            <th scope="col">Stad</th>
+            <th scope="col">Land</th>
+            <th scope="col">Telefonnr</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Hyrda filmer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="Customer: ${customerlist}">
+            <tr>
+                <td th:text="${Customer.ssn}"></td>
+                <td th:text="${Customer.fName}"></td>
+                <td th:text="${Customer.lName}"></td>
+                <td th:text="${Customer.address}"></td>
+                <td th:text="${Customer.zip}"></td>
+                <td th:text="${Customer.city}"></td>
+                <td th:text="${Customer.country}"></td>
+                <td th:text="${Customer.phone}"></td>
+                <td th:text="${Customer.mail}"></td>
+                <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
+                <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
+                <th:block th:each="movie : ${Customer.rentedMovies}">
+                    <td th:text="${movie.mid}"></td>
+                    <td th:text="${movie.title}"></td>
+                </th:block>
+            </tr>
+        </th:block>
+    </tbody>
 </table>
+
 </body>
 </html>
