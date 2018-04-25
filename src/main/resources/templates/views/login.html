@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Login</title>
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<form action="#" th:action="@{/}" method="post">
+
+<!-- Original login -->
+<!--<form action="#" th:action="@{/}" method="post">
     <h2>Logga in:</h2>
     <div th:if="${param.error}">
         Felaktig användare eller lösenord!
@@ -34,6 +38,39 @@
         >
     </div>
 
-</form>
+</form> -->
+
+<!-- New login -->
+<div class="login">
+    <div class="login-screen">
+        <div class="app-title">
+            <h1 id="h1login">Login</h1>
+        </div>
+
+        <div class="login-form">
+            <form action="#" th:action="@{/}" method="post">
+                <div class="control-group">
+                    <input type="text" class="login-field" value="" name="username" placeholder="Användare" id="username">
+                    <label class="login-field-icon fui-user" for="username"></label>
+                </div>
+
+                <div class="control-group">
+                    <input type="password" class="login-field" value="" name="password" placeholder="Lösenord" id="password">
+                    <label class="login-field-icon fui-lock" for="password"></label>
+                </div>
+
+                <!-- <a class="btn btn-primary btn-large btn-block" href="#" type="submit">login</a> -->
+
+                <input class="login-field-input" type="submit" value="Logga in">
+
+                <div th:if="${param.error}" style="color: Red">
+                    Felaktig användare eller lösenord!
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
