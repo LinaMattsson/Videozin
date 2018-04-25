@@ -48,7 +48,7 @@
 <div id="container">
     <div id="formContainer">
         <table th:if="${not #lists.isEmpty(activecustomer.rentedMovies)}">
-            <h3>Hyrda filmer</h3>
+            <h2>Hyrda filmer</h2>
             <tr>
                 <th>Titel</th>
             </tr>
@@ -58,7 +58,7 @@
                     <td>
                         <form action="#" th:action="@{/activecustomer/returnmovie/}+${rentedmovie.mid}"
                               method="POST">
-                            <input type="submit" value="Returnera">
+                            <input type="submit" class="button" value="Returnera">
                         </form>
                     </td>
                 </tr>
@@ -66,15 +66,17 @@
             <tr>
                 <td>
                     <form action="#" th:action="@{/activecustomer/returnallmovies/}" method="POST">
-                        <input type="submit" value="Returnera Alla">
+                        <input type="submit" class="btn" value="Returnera Alla">
                     </form>
                 </td>
             </tr>
         </table>
 
+        <hr th:if="${not #lists.isEmpty(activecustomer.rentedMovies)}">
+
         <!--Filmer som är tillagda på kunden för att eventuellt hyra-->
         <table th:if="${not #lists.isEmpty(cart)}">
-            <h4>Filmer att hyra</h4>
+            <h2>Filmer att hyra</h2>
             <tr>
                 <th>Titel</th>
                 <th>Format</th>
@@ -93,41 +95,46 @@
 
             <tr>
                 <td>
-                    <span th:text="${totalprice}+'kr'"></span>
+                    <span th:text="'Totalt:'+${totalprice}+'kr'"></span>
                     <form action="#" th:action="@{/activecustomer/rent/}" method="POST">
-                        <input type="submit" value="Hyr ut filmer">
+                        <input type="submit" class="btn" value="Hyr ut filmer">
                     </form>
                 </td>
             </tr>
         </table>
 
+        <hr th:if="${not #lists.isEmpty(cart)}">
+
         <!--input för att välja vilken kund som ska hyra-->
         <div th:if="${activecustomer.ssn == null}">
-            <h1 class="h1Special">Hyr ut film</h1>
+            <h2>Hyr ut film</h2>
             <form action="#" th:action="@{/activecustomer/}" th:object="${activecustomer}" method="POST">
                 <label for="activecustomer">Kund:</label>
                 <input type="text" th:field="*{ssn}" id="activecustomer">
 
-                <input type="submit" value="OK">
+                <input type="submit" class="btn" value="OK">
             </form>
         </div>
 
         <!--Lägger till filmer på kunden-->
         <div th:if="${activecustomer.ssn != null}">
-            <h1>Hyr ut film</h1>
+            <h2>Hyr ut film</h2>
             <span th:if="${activecustomer.ssn != null}" th:text="'Hyr till: '+${activecustomer.ssn}"></span>
             <a class="button" th:href="@{/dispatchcustomer/}">Avbryt kund</a>
-
+            <br><br>
             <form action="#" th:action="@{/activecustomer/addmovie/}" th:object="${movie}" method="POST">
                 <label for="activecustomermid">FilmID:</label>
                 <input type="text" th:field="*{mid}" id="activecustomermid">
-                <input type="submit" value="lägg till film">
+                <input type="submit" class="btn" value="lägg till film">
             </form>
         </div>
 
-        <!--SÖkning efter vilka filmer som finns-->
         <p th:text="${message}"></p>
-        <h1>Sök filmer</h1>
+
+        <hr>
+
+        <!--SÖkning efter vilka filmer som finns-->
+        <h2>Sök filmer</h2>
         <form action="#" th:action="@{/showmovie/result/0/}" th:object="${movie}" method="GET">
             <label for="mid">Film id:</label>
             <input type="text" id="mid" th:field="*{mid}">
@@ -135,16 +142,16 @@
             <input type="text" id="title" th:field="*{title}">
             <label for="cat">Kategori:</label>
             <input type="text" id="cat" th:field="*{category}">
-
-            <input type="submit" value="Sök">
+            <br>
+            <input type="submit" class="btn" value="Sök">
         </form>
 
         <form th:action="@{/showmovie/rented/0/}" method="get">
-            <input type="submit" value="Visa uthyrda filmer">
+            <input type="submit" class="btn" value="Visa uthyrda filmer">
         </form>
 
-        <form th:action="@{/showmovie/late/0}" method="" get>
-            <input type="submit" value="Visa försenade filmer">
+        <form th:action="@{/showmovie/late/0}" method="get">
+            <input type="submit" class="btn" value="Visa försenade filmer">
         </form>
 
     </div>
