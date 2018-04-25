@@ -45,7 +45,7 @@
 
 <div class="container">
     <form id="contact" action="#" th:action="@{/addmovie}" th:object="${movie}" method="post">
-        <h3>Lägg till film</h3>
+        <h2>Lägg till film</h2>
         <br>
         <!--<h4>Fyll i allt</h4>-->
         Film id:<br>
@@ -73,7 +73,7 @@
         <input type="text" th:field="*{price}">
         <br><br>
         <!--<input type="submit" value="Lägg till">-->
-        <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Lägg till</button>
+        <button name="submit" type="submit" id="contact-submit">Lägg till</button>
         <br><br>
 
         <div th:text="${message}"></div>

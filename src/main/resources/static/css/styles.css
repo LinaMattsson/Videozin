@@ -5,31 +5,36 @@ body {
     background-attachment: fixed;
 }
 
-.button{
+.button {
     display: inline-block;
     line-height: 1;
     padding: 5px;
     background: mediumpurple;
-    border-radius: 0.125em;
     background-clip: padding-box;
-    color:purple;
-    margin-right: 1em
+    color: purple;
+    margin-right: 1em;
+    border-radius: 10px;
+    border-style: none;
 }
 
-h1,h2,h3,h4 {
+label {
+    display: block;
+}
+
+h1, h2, h3, h4 {
     font-family: "Arial Narrow";
-    color:purple;
-    margin:40px 0 10px;
-}
-h4{
-    margin:20px 0 10px;
+    color: purple;
+    margin: 10px auto;
+    text-align:center;
 }
 
-.h1Special {
-    font-family: "Arial Narrow";
-    padding-top: 25px;
+h4 {
+    margin: 20px 0 10px;
 }
 
+form input[type="submit"] {
+    margin-top: 10px;
+}
 
 .navWrapper {
     margin-bottom: 20px;
@@ -37,7 +42,7 @@ h4{
 }
 
 .bg-fadedNew {
-        /*background-color: #f7f7f7;*/
+    /*background-color: #f7f7f7;*/
     background-color: rgba(246, 88, 175, 0.5);
     background: rgba(246, 88, 175, 0.5);
     color: rgba(246, 88, 175, 0.5);
@@ -51,48 +56,51 @@ h4{
 #container {
     display: flex;
 }
-.container{
-    width:40%;
+
+.container {
+    width: 40%;
 }
+
 #formContainer {
     background-color: #F9F9F9;
     margin: 0 10px;
     position: relative;
     height: max-content;
     flex: 0.2;
-    padding:0 10px;
+    padding: 0 10px;
 }
 
 #tableContainer {
     background-color: #F9F9F9;
     flex: 2;
     width: auto;
-    height: auto;
+    height: min-content;
     line-height: 1;
-    position:relative;
-}
-#pagingTable{
-    clear:both;
-    position:absolute;
-    bottom:0px;
-    right:50%;
-    margin:0 auto 10px;
+    position: relative;
 }
 
-#pagingTable input{
-    background-color:mediumpurple;
-    border-radius:10px;
-    border-style:none;
-    padding:5px;
-
+#pagingTable {
+    display: block;
+    margin: 10px auto;
 }
 
+#pagingTable table {
+    margin: 0 auto;
+}
 
+#pagingTable input {
+    background-color: mediumpurple;
+    border-radius: 10px;
+    border-style: none;
+    padding: 5px;
+
+}
 
 .table {
     background-color: #F9F9F9;
     color: Black;
 }
+
 footer {
     position: relative;
     right: 0;
@@ -125,11 +133,8 @@ footer {
     top: 340px;
 }
 
-
-
 /* Form */
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
-
 
 #contact input[type="text"],
 #contact input[type="email"],
@@ -249,8 +254,6 @@ fieldset {
     color: #888;
 }
 
-
-
 /* new login CSS */
 
 #h1login {
@@ -261,6 +264,7 @@ fieldset {
     margin: 200px auto;
     width: 300px;
 }
+
 .login-screen {
     background-color: #FFF;
     padding: 20px;
@@ -275,6 +279,7 @@ fieldset {
 .login-form {
     text-align: center;
 }
+
 .control-group {
     margin-bottom: 10px;
 }
@@ -319,18 +324,17 @@ fieldset {
 .btn {
     border: 2px solid transparent;
     background: #aa02b5;
-    color: #ffffff;
+    color: hotpink;
     font-size: 16px;
-    line-height: 25px;
-    padding: 10px 0;
+    line-height: 10px;
+    padding: 10px 10px;
     text-decoration: none;
     text-shadow: none;
     border-radius: 3px;
     box-shadow: none;
     transition: 0.25s;
     display: block;
-    width: 250px;
-    margin: 0 auto;
+    margin: 10px;
 }
 
 .btn:hover {
