@@ -5,8 +5,24 @@ body {
     background-attachment: fixed;
 }
 
-h1 {
+.button{
+    display: inline-block;
+    line-height: 1;
+    padding: 5px;
+    background: mediumpurple;
+    border-radius: 0.125em;
+    background-clip: padding-box;
+    color:purple;
+    margin-right: 1em
+}
+
+h1,h2,h3,h4 {
     font-family: "Arial Narrow";
+    color:purple;
+    margin:40px 0 10px;
+}
+h4{
+    margin:20px 0 10px;
 }
 
 .h1Special {
@@ -14,11 +30,6 @@ h1 {
     padding-top: 25px;
 }
 
-.formWrapper {
-    width: 800px;
-    padding-left: 100px;
-    margin-bottom: 200px;
-}
 
 .navWrapper {
     margin-bottom: 20px;
@@ -36,6 +47,47 @@ h1 {
     width: 15%;
     margin-right: 20px;
 }
+
+#container {
+    display: flex;
+}
+.container{
+    width:40%;
+}
+#formContainer {
+    background-color: #F9F9F9;
+    margin: 0 10px;
+    position: relative;
+    height: max-content;
+    flex: 0.2;
+    padding:0 10px;
+}
+
+#tableContainer {
+    background-color: #F9F9F9;
+    flex: 2;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    position:relative;
+}
+#pagingTable{
+    clear:both;
+    position:absolute;
+    bottom:0px;
+    right:50%;
+    margin:0 auto 10px;
+}
+
+#pagingTable input{
+    background-color:mediumpurple;
+    border-radius:10px;
+    border-style:none;
+    padding:5px;
+
+}
+
+
 
 .table {
     background-color: #F9F9F9;
@@ -73,51 +125,11 @@ footer {
     top: 340px;
 }
 
-.containerWrapper {
-    background-color: #F9F9F9;
-    max-width: 700px;
-    width: 50%;
-    margin: 0 auto;
-    position: relative;
-    height: max-content;
-    margin-top: 80px;
-}
 
-.containerWrapper2 {
-    background-color: #F9F9F9;
-    max-width: 700px;
-    width: 50%;
-    margin: 0 auto;
-    position: relative;
-    height: max-content;
-}
-
-.containerWrapper3 {
-    background-color: #F9F9F9;
-    max-width: 700px;
-    width: 50%;
-    margin: 0 auto;
-    position: relative;
-    height: max-content;
-    margin-bottom: 100px;
-}
-
-.containerSpecial {
-    max-width: 630px;
-    width: 50%;
-    margin: 0 auto;
-    position: relative;
-}
 
 /* Form */
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
 
-.container {
-    max-width: 630px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-}
 
 #contact input[type="text"],
 #contact input[type="email"],
