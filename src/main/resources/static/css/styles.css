@@ -5,10 +5,25 @@ body {
     background-attachment: fixed;
 }
 
-h1 {
-    font-family: "Arial Narrow";
+.button{
+    display: inline-block;
+    line-height: 1;
+    padding: 5px;
+    background: mediumpurple;
+    border-radius: 0.125em;
+    background-clip: padding-box;
+    color:purple;
+    margin-right: 1em
 }
 
+h1,h2,h3,h4 {
+    font-family: "Arial Narrow";
+    color:purple;
+    margin:40px 0 10px;
+}
+h4{
+    margin:20px 0 10px;
+}
 
 .h1Special {
     font-family: "Arial Narrow";
@@ -36,18 +51,16 @@ h1 {
 #container {
     display: flex;
 }
-
+.container{
+    width:40%;
+}
 #formContainer {
     background-color: #F9F9F9;
     margin: 0 10px;
     position: relative;
     height: max-content;
-    flex: 1;
-    width:250px;
+    flex: 0.2;
     padding:0 10px;
-}
-#formContainer Form{
-    width:250px;
 }
 
 #tableContainer {
@@ -61,9 +74,17 @@ h1 {
 #pagingTable{
     clear:both;
     position:absolute;
-    bottom:0;
+    bottom:0px;
     right:50%;
     margin:0 auto 10px;
+}
+
+#pagingTable input{
+    background-color:mediumpurple;
+    border-radius:10px;
+    border-style:none;
+    padding:5px;
+
 }
 
 

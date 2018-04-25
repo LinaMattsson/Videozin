@@ -89,7 +89,7 @@
                 <td th:text="${Customer.phone}"></td>
                 <td th:text="${Customer.mail}"></td>
                 <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
-                <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
+                <td><a class="button" th:href="@{/deletecustomer/}+${Customer.ssn}">X</a></td>
                 <th:block th:each="movie : ${Customer.rentedMovies}">
                     <td th:text="${movie.mid}"></td>
                     <td th:text="${movie.title}"></td>

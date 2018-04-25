@@ -32,7 +32,8 @@ public class HomeController {
 
     @GetMapping("/start")
     public String home(Model model) {
-        model.addAttribute("cart", cart);
+             model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
         return "views/index";
@@ -44,6 +45,7 @@ public class HomeController {
         List<Movie> movielist = new ArrayList<>();
 
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", movie);
         model.addAttribute("activecustomer", activecustomer);
 
@@ -74,24 +76,29 @@ public class HomeController {
         else return "redirect:/addcustomer/";
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
+
         model.addAttribute("movie", new Movie());
         return "views/index";
     }
 
     @GetMapping("/activecustomer/addmovie/{mid}")
     public String addToCartLink(@PathVariable String mid, Model model) {
-        boolean duplicate = false;
-        for (Movie m : cart) {
-            if (m.getMid().equals(mid))
-                duplicate = true;
-        }
-        if (!duplicate && movieRepository.findById(mid).isPresent() && movieRepository.findById(mid).get().getRentdate() == null)
-            cart.add(movieRepository.findById(mid).get());
-        else model.addAttribute("message", "Denna filmen är redan uthyrd!");
+       if(mid!=null) {
+           boolean duplicate = false;
+           for (Movie m : cart) {
+               if (m.getMid().equals(mid))
+                   duplicate = true;
+           }
+           if (!duplicate && movieRepository.findById(mid).isPresent() && movieRepository.findById(mid).get().getRentdate() == null)
+               cart.add(movieRepository.findById(mid).get());
+           else model.addAttribute("message", "Denna filmen är redan uthyrd!");
+       } else model.addAttribute("message","denna filmen finns ej!");
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         model.addAttribute("movietocart", new Movie());
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         System.out.println(cart);
         return "views/index";
     }
@@ -110,6 +117,7 @@ public class HomeController {
         else model.addAttribute("message", "Denna filmen är redan uthyrd!");
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", new Movie());
         return "views/index";
     }
@@ -121,6 +129,7 @@ public class HomeController {
                 collect(Collectors.toList());
 
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
@@ -138,6 +147,7 @@ public class HomeController {
         cart.clear();
         activecustomer = new Customer();
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
@@ -148,6 +158,7 @@ public class HomeController {
         cart.clear();
         activecustomer = new Customer();
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
@@ -157,6 +168,7 @@ public class HomeController {
     public String deleteMovie(@PathVariable String mid, Model model) {
         movieRepository.deleteById(mid);
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         return "views/index";
@@ -175,6 +187,7 @@ public class HomeController {
 
         model.addAttribute("movielist", movielist);
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer", activecustomer);
         model.addAttribute("movie", new Movie());
         model.addAttribute("paging", "rented");
@@ -196,6 +209,7 @@ public class HomeController {
         lateList = PagingHandler.getPagedMovieList(lateList,currentpage,pageSize);
         model.addAttribute("movielist", lateList);
         model.addAttribute("cart",cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("activecustomer",activecustomer);
         model.addAttribute("movie", new Movie());
 
@@ -209,6 +223,7 @@ public class HomeController {
         movieRepository.save(movieRepository.getOne(mid));
         activecustomer = customerRepository.getOne(activecustomer.getSsn());
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
         return "views/index";
@@ -220,11 +235,13 @@ public class HomeController {
         for (Movie m : movielist) {
             movieRepository.getOne(m.getMid()).setRentdate(null);
             movieRepository.getOne(m.getMid()).setCustomer(null);
+
         }
         movielist.clear();
         movieRepository.saveAll(movielist);
         activecustomer = customerRepository.getOne(activecustomer.getSsn());
         model.addAttribute("cart", cart);
+        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
         return "views/index";
