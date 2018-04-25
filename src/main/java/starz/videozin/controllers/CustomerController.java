@@ -60,7 +60,9 @@ public class CustomerController {
             model.addAttribute("customerlist", customerRepository.findAll());
         }
         else if (!customer.getSsn().equals("")) {
+            if(customer.getSsn().isEmpty())
             model.addAttribute("customerlist", customerRepository.getOne(customer.getSsn()));
+            else model.addAttribute("message","kund finns ej");
         }
         else if (!customer.getPhone().equals("")){
             model.addAttribute("customerlist", customerRepository.findByphone(customer.getPhone()));

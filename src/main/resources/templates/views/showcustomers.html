@@ -1,66 +1,103 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<a href="/">Start</a>
-<a href="/addmovie">Lägg till film</a>
-<a href="/addcustomer">Lägg till kund</a>
-<a href="/showcustomer">Sök kund</a>
-<a href="/logout"></a>
 
-<h1>Kunder</h1>
-<h2>Sök kund</h2>
-<form action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
-    Personnummer: <br>
-    <input type="text" th:field="*{ssn}"><br>
-    Förnamn: <br>
-    <input type="text" th:field="*{fName}"><br>
-    Efternamn: <br>
-    <input type="text" th:field="*{lName}"><br>
-    Telefonnummer: <br>
-    <input type="text" th:field="*{phone}"><br><br>
-    <input type="submit" value="Sök">
-</form>
+<div class="navWrapper">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-fadedNew">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<h2>Resultat</h2>
-<table>
-    <tr>
-        <th>Personnr</th>
-        <th>Förnamn</th>
-        <th>Efternamn</th>
-        <th>Adress</th>
-        <th>Postnr</th>
-        <th>Stad</th>
-        <th>Land</th>
-        <th>Telefonnr</th>
-        <th>Email</th>
-        <th></th>
-        <th></th>
-        <th>Hyrda filmer</th>
-    </tr>
-    <th:block th:each="Customer: ${customerlist}">
+        <img th:src="@{/images/videoZinV2.png}" id="NavLogo">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/start">Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/addmovie">Lägg till film</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/addcustomer">Lägg till kund</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link aHover" href="/showcustomer">Sök kund<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/logout">Logga ut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<!-- Sök kund formuläret -->
+<div class="container">
+    <form id="contact" action="#" th:action="@{/showcustomer/result}" th:object="${customer}" method="get">
+        <h3>Sök kund</h3>
+        <br>
+        Personnummer: <br>
+        <input type="text" th:field="*{ssn}"><br>
+        Förnamn: <br>
+        <input type="text" th:field="*{fName}"><br>
+        Efternamn: <br>
+        <input type="text" th:field="*{lName}"><br>
+        Telefonnummer: <br>
+        <input type="text" th:field="*{phone}"><br><br>
+        <input type="submit" value="Sök">
+    </form>
+</div>
+
+<!-- Bootstrap Table -->
+<h2 style="text-align: center; color: #aa02b5; font-family: unset;">Resultat</h2>
+
+<table class="table table-hover table-dark">
+    <thead>
         <tr>
-            <td th:text="${Customer.ssn}"></td>
-            <td th:text="${Customer.fName}"></td>
-            <td th:text="${Customer.lName}"></td>
-            <td th:text="${Customer.address}"></td>
-            <td th:text="${Customer.zip}"></td>
-            <td th:text="${Customer.city}"></td>
-            <td th:text="${Customer.country}"></td>
-            <td th:text="${Customer.phone}"></td>
-            <td th:text="${Customer.mail}"></td>
-            <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
-            <td><a th:href="@{/deletecustomer/}+${Customer.ssn}">Ta bort</a></td>
-            <th:block th:each="movie : ${Customer.rentedMovies}">
-                <td th:text="${movie.mid}"></td>
-                <td th:text="${movie.title}"></td>
-            </th:block>
-    </th:block>
-    </tr>
-
+            <th scope="col">Personnr</th>
+            <th scope="col">Förnamn</th>
+            <th scope="col">Efternamn</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Postnr</th>
+            <th scope="col">Stad</th>
+            <th scope="col">Land</th>
+            <th scope="col">Telefonnr</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Hyrda filmer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <th:block th:each="Customer: ${customerlist}">
+            <tr>
+                <td th:text="${Customer.ssn}"></td>
+                <td th:text="${Customer.fName}"></td>
+                <td th:text="${Customer.lName}"></td>
+                <td th:text="${Customer.address}"></td>
+                <td th:text="${Customer.zip}"></td>
+                <td th:text="${Customer.city}"></td>
+                <td th:text="${Customer.country}"></td>
+                <td th:text="${Customer.phone}"></td>
+                <td th:text="${Customer.mail}"></td>
+                <td><a th:href="@{/editcustomer/}+${Customer.ssn}">Ändra</a></td>
+                <td><a class="button" th:href="@{/deletecustomer/}+${Customer.ssn}">X</a></td>
+                <th:block th:each="movie : ${Customer.rentedMovies}">
+                    <td th:text="${movie.mid}"></td>
+                    <td th:text="${movie.title}"></td>
+                </th:block>
+            </tr>
+        </th:block>
+    </tbody>
 </table>
+
 </body>
 </html>

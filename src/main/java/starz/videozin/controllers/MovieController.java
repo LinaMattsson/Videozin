@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import starz.videozin.entities.Customer;
 import starz.videozin.entities.Movie;
 import starz.videozin.repositories.CustomerRepository;
 import starz.videozin.repositories.MovieRepository;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 public class MovieController {
@@ -22,7 +20,9 @@ public class MovieController {
 
     @GetMapping("/addmovie")
     public String addMovie(Model model) {
-        model.addAttribute("movie", new Movie());
+        Movie movie = new Movie();
+        movie.setReleasedate(Date.valueOf(LocalDate.now()));
+        model.addAttribute("movie", movie);
         return "views/addmovieform";
     }
 

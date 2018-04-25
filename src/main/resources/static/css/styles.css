@@ -1,0 +1,338 @@
+body {
+    background-image: url("../images/abstract-purple-and-magenta-sparks_-1h3xxpgb__F0000.png");
+    background-repeat: no-repeat;
+    /*background-position: center;*/
+    background-attachment: fixed;
+}
+
+.button{
+    display: inline-block;
+    line-height: 1;
+    padding: 5px;
+    background: mediumpurple;
+    border-radius: 0.125em;
+    background-clip: padding-box;
+    color:purple;
+    margin-right: 1em
+}
+
+h1,h2,h3,h4 {
+    font-family: "Arial Narrow";
+    color:purple;
+    margin:40px 0 10px;
+}
+h4{
+    margin:20px 0 10px;
+}
+
+.h1Special {
+    font-family: "Arial Narrow";
+    padding-top: 25px;
+}
+
+
+.navWrapper {
+    margin-bottom: 20px;
+    border-bottom: #0400ff Solid 1px;
+}
+
+.bg-fadedNew {
+        /*background-color: #f7f7f7;*/
+    background-color: rgba(246, 88, 175, 0.5);
+    background: rgba(246, 88, 175, 0.5);
+    color: rgba(246, 88, 175, 0.5);
+}
+
+#NavLogo {
+    width: 15%;
+    margin-right: 20px;
+}
+
+#container {
+    display: flex;
+}
+.container{
+    width:40%;
+}
+#formContainer {
+    background-color: #F9F9F9;
+    margin: 0 10px;
+    position: relative;
+    height: max-content;
+    flex: 0.2;
+    padding:0 10px;
+}
+
+#tableContainer {
+    background-color: #F9F9F9;
+    flex: 2;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    position:relative;
+}
+#pagingTable{
+    clear:both;
+    position:absolute;
+    bottom:0px;
+    right:50%;
+    margin:0 auto 10px;
+}
+
+#pagingTable input{
+    background-color:mediumpurple;
+    border-radius:10px;
+    border-style:none;
+    padding:5px;
+
+}
+
+
+
+.table {
+    background-color: #F9F9F9;
+    color: Black;
+}
+footer {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    /* background-color: #efefef; */
+    text-align: center;
+    background-color: rgba(246, 88, 175, 0.5);
+    background: rgba(246, 88, 175, 0.5);
+    color: rgba(246, 88, 175, 0.5);
+    color: black;
+    border-top: 1px Solid blue;
+}
+
+.aHover:hover {
+    text-shadow: 1px 1px 0.5px #b352b9;
+    transition: 0.3s;
+}
+
+.aHover {
+    font-size: 1.3em;
+    font-family: fantasy;
+}
+
+#kamera {
+    width: 30%;
+    position: absolute;
+    left: 882px;
+    top: 340px;
+}
+
+
+
+/* Form */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea,
+#contact button[type="submit"] {
+    font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
+}
+
+#contact {
+    background: #F9F9F9;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 80px 0;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#contact h3 {
+    display: block;
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #aa02b5;
+    text-align: center;
+}
+
+#contact h4 {
+    margin: 5px 0 15px;
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+fieldset {
+    border: medium none !important;
+    margin: 0 0 10px;
+    min-width: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+#contact input[type="text"],
+#contact input[type="email"],
+#contact input[type="tel"],
+#contact input[type="url"],
+#contact textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    background: #FFF;
+    margin: 0 0 5px;
+    padding: 10px;
+}
+
+#contact input[type="text"]:hover,
+#contact input[type="email"]:hover,
+#contact input[type="tel"]:hover,
+#contact input[type="url"]:hover,
+#contact textarea:hover {
+    -webkit-transition: border-color 0.3s ease-in-out;
+    -moz-transition: border-color 0.3s ease-in-out;
+    transition: border-color 0.3s ease-in-out;
+    border: 1px solid #aaa;
+}
+
+#contact textarea {
+    height: 100px;
+    max-width: 100%;
+    resize: none;
+}
+
+#contact button[type="submit"] {
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    background: #aa02b5;
+    color: #FFF;
+    margin: 0 0 5px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+#contact button[type="submit"]:hover {
+    background: #710DA0;
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#contact button[type="submit"]:active {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.copyright {
+    text-align: center;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+    outline: 0;
+    border: 1px solid #aaa;
+}
+
+::-webkit-input-placeholder {
+    color: #888;
+}
+
+:-moz-placeholder {
+    color: #888;
+}
+
+::-moz-placeholder {
+    color: #888;
+}
+
+:-ms-input-placeholder {
+    color: #888;
+}
+
+
+
+/* new login CSS */
+
+#h1login {
+    color: #aa02b5;
+}
+
+.login {
+    margin: 200px auto;
+    width: 300px;
+}
+.login-screen {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px
+}
+
+.app-title {
+    text-align: center;
+    color: #777;
+}
+
+.login-form {
+    text-align: center;
+}
+.control-group {
+    margin-bottom: 10px;
+}
+
+.login-field {
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+}
+
+.login-field:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+}
+
+.login-field-input {
+    text-align: center;
+    background-color: #aa02b5;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+    margin-bottom: 15px
+}
+
+.login-field-input:hover {
+    background-color: #710DA0;
+    color: White;
+    transition: 0.3s;
+    box-shadow: none;
+}
+
+.btn {
+    border: 2px solid transparent;
+    background: #aa02b5;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 10px 0;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    box-shadow: none;
+    transition: 0.25s;
+    display: block;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.btn:hover {
+    background-color: #710DA0;
+}
