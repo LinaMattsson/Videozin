@@ -34,12 +34,19 @@ public class HomeController {
     @Autowired
     MovieRepository movieRepository;
 
-    @GetMapping("/start")
-    public String home(Model model) {
-             model.addAttribute("cart", cart);
+    private Model autoImport(Model model){
+        model.addAttribute("cart",cart);
         model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", new Movie());
         model.addAttribute("activecustomer", activecustomer);
+
+        return model;
+    }
+
+
+    @GetMapping("/start")
+    public String home(Model model) {
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -47,16 +54,16 @@ public class HomeController {
     public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) throws ParseException {
         int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
+        model=autoImport(model);
 
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
         model.addAttribute("movie", movie);
-        model.addAttribute("activecustomer", activecustomer);
 
         if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")&& movie.getDescription().equals("")) {
             movielist = movieRepository.findAll();
         } else if (!movie.getMid().equals("")) {
+            if(movieRepository.findById(movie.getMid()).isPresent())
             movielist.add(movieRepository.getOne(movie.getMid()));
+            else model.addAttribute("message","FilmID finns ej!");
         }
         else if (!movie.getDescription().equals("")&& !movie.getCategory().equals("")){
             movielist = movieRepository.findMovieByReleasedate(Integer.parseInt(movie.getDescription().substring(0, 4)));
@@ -102,11 +109,7 @@ public class HomeController {
         if (customerRepository.findById(customer.getSsn()).isPresent())
             activecustomer = customerRepository.getOne(customer.getSsn());
         else return "redirect:/addcustomer/";
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -122,12 +125,8 @@ public class HomeController {
                cart.add(movieRepository.findById(mid).get());
            else model.addAttribute("message", "Denna filmen är redan uthyrd!");
        } else model.addAttribute("message","denna filmen finns ej!");
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
         model.addAttribute("movietocart", new Movie());
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        System.out.println(cart);
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -143,10 +142,7 @@ public class HomeController {
         else if (!movieRepository.findById(movie.getMid()).isPresent())
             model.addAttribute("message", "Detta FilmID finns inte");
         else model.addAttribute("message", "Denna filmen är redan uthyrd!");
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -156,10 +152,7 @@ public class HomeController {
                 filter(movie -> !movie.getMid().equals(dropmoviefromcart)).
                 collect(Collectors.toList());
 
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -174,10 +167,7 @@ public class HomeController {
         movieRepository.saveAll(cart);
         cart.clear();
         activecustomer = new Customer();
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -185,20 +175,14 @@ public class HomeController {
     public String dispatchCustomer(Model model) {
         cart.clear();
         activecustomer = new Customer();
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
     @GetMapping("/deletemovie/{mid}")
     public String deleteMovie(@PathVariable String mid, Model model) {
         movieRepository.deleteById(mid);
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -213,11 +197,8 @@ public class HomeController {
 
         model.addAttribute("currentpage", currentpage);
 
+        model=autoImport(model);
         model.addAttribute("movielist", movielist);
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer", activecustomer);
-        model.addAttribute("movie", new Movie());
         model.addAttribute("paging", "rented");
 
         return "views/index";
@@ -235,11 +216,8 @@ public class HomeController {
 
         model.addAttribute("currentpage", currentpage);
         lateList = PagingHandler.getPagedMovieList(lateList,currentpage,pageSize);
+        model=autoImport(model);
         model.addAttribute("movielist", lateList);
-        model.addAttribute("cart",cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("activecustomer",activecustomer);
-        model.addAttribute("movie", new Movie());
 
        return "views/index";
     }
@@ -250,10 +228,7 @@ public class HomeController {
         movieRepository.getOne(mid).setCustomer(null);
         movieRepository.save(movieRepository.getOne(mid));
         activecustomer = customerRepository.getOne(activecustomer.getSsn());
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("movie", new Movie());
-        model.addAttribute("activecustomer", activecustomer);
+        model=autoImport(model);
         return "views/index";
     }
 
@@ -268,10 +243,7 @@ public class HomeController {
         movielist.clear();
         movieRepository.saveAll(movielist);
         activecustomer = customerRepository.getOne(activecustomer.getSsn());
-        model.addAttribute("cart", cart);
-        model.addAttribute("totalprice", cart.stream().mapToInt(m -> m.getPrice()).sum());
-        model.addAttribute("movie", new Movie());
-        model.addAttribute("activecustomer", activecustomer);
+        model=autoImport(model);
         return "views/index";
     }
 
