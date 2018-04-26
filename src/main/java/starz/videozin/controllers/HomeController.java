@@ -58,29 +58,29 @@ public class HomeController {
         } else if (!movie.getMid().equals("")) {
             movielist.add(movieRepository.getOne(movie.getMid()));
         }
-//        else if (!movie.getDescription().equals("")&& !movie.getCategory().equals("")){
-//            movielist = movieRepository.findMovieByCategory(movie.getCategory());
-//            movielist = movielist.stream()
-//                    .filter(m -> m.getReleasedate()==movie.getReleasedate())
-//                    .collect(Collectors.toList());
-//        }
-//        String string = "January 2, 2010";
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-//        LocalDate date = LocalDate.parse(string, formatter);
-//        System.out.println(date); // 2010-01-02
-
-//        String string = "January 2, 2010";
-//        DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-//        Date date = format.parse(string);
-//        System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
-       // movielist = movieRepository.findMovieByReleasedate(tempdate);
-
-
+        else if (!movie.getDescription().equals("")&& !movie.getCategory().equals("")){
+            movielist = movieRepository.findMovieByReleasedate(Integer.parseInt(movie.getDescription().substring(0, 4)));
+            movielist = movielist.stream()
+                    .filter(m -> m.getCategory().equals(movie.getCategory()))
+                    .collect(Collectors.toList());
+        }
+        else if (!movie.getDescription().equals("")&& !movie.getTitle().equals("")){
+            movielist = movieRepository.findMovieByReleasedate(Integer.parseInt(movie.getDescription().substring(0, 4)));
+            movielist = movielist.stream()
+                    .filter(m -> m.getTitle().equals(movie.getTitle()))
+                    .collect(Collectors.toList());
+        }
+        else if (!movie.getCategory().equals("")&& !movie.getTitle().equals("")){
+            movielist = movieRepository.findMovieByTitle(movie.getTitle());
+            movielist = movielist.stream()
+                    .filter(m -> m.getCategory().equals(movie.getCategory()))
+                    .collect(Collectors.toList());
+        }
         else if(!movie.getDescription().equals("")){
-            String tempdate = movie.getDescription();
-            DateFormat format = new SimpleDateFormat("YYYY-MM-DD");
-            java.util.Date date = format.parse(tempdate);
-            movielist = movieRepository.findMovieByReleasedate(date);
+            int year = Integer.parseInt(movie.getDescription().substring(0, 4));
+            movielist = movieRepository.findMovieByReleasedate(year);
+
+
         }else if (!movie.getCategory().equals("")) {
             movielist = movieRepository.findMovieByCategory(movie.getCategory());
         } else if (!movie.getTitle().equals("")) {
