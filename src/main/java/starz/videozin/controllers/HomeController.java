@@ -15,7 +15,11 @@ import starz.videozin.repositories.CustomerRepository;
 import starz.videozin.repositories.MovieRepository;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +44,7 @@ public class HomeController {
     }
 
     @GetMapping("/showmovie/result/{currentpage}")
-    public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) {
+    public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) throws ParseException {
         int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
 
@@ -49,11 +53,35 @@ public class HomeController {
         model.addAttribute("movie", movie);
         model.addAttribute("activecustomer", activecustomer);
 
-        if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")) {
+        if (movie.getTitle().equals("") && movie.getMid().equals("") && movie.getCategory().equals("")&& movie.getDescription().equals("")) {
             movielist = movieRepository.findAll();
         } else if (!movie.getMid().equals("")) {
             movielist.add(movieRepository.getOne(movie.getMid()));
-        } else if (!movie.getCategory().equals("")) {
+        }
+        else if (!movie.getDescription().equals("")&& !movie.getCategory().equals("")){
+            movielist = movieRepository.findMovieByReleasedate(Integer.parseInt(movie.getDescription().substring(0, 4)));
+            movielist = movielist.stream()
+                    .filter(m -> m.getCategory().equals(movie.getCategory()))
+                    .collect(Collectors.toList());
+        }
+        else if (!movie.getDescription().equals("")&& !movie.getTitle().equals("")){
+            movielist = movieRepository.findMovieByReleasedate(Integer.parseInt(movie.getDescription().substring(0, 4)));
+            movielist = movielist.stream()
+                    .filter(m -> m.getTitle().equals(movie.getTitle()))
+                    .collect(Collectors.toList());
+        }
+        else if (!movie.getCategory().equals("")&& !movie.getTitle().equals("")){
+            movielist = movieRepository.findMovieByTitle(movie.getTitle());
+            movielist = movielist.stream()
+                    .filter(m -> m.getCategory().equals(movie.getCategory()))
+                    .collect(Collectors.toList());
+        }
+        else if(!movie.getDescription().equals("")){
+            int year = Integer.parseInt(movie.getDescription().substring(0, 4));
+            movielist = movieRepository.findMovieByReleasedate(year);
+
+
+        }else if (!movie.getCategory().equals("")) {
             movielist = movieRepository.findMovieByCategory(movie.getCategory());
         } else if (!movie.getTitle().equals("")) {
             movielist = movieRepository.findMovieByTitle(movie.getTitle());

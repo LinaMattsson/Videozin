@@ -142,6 +142,8 @@
             <input type="text" id="title" th:field="*{title}">
             <label for="cat">Kategori:</label>
             <input type="text" id="cat" th:field="*{category}">
+            <label for="rel">Releasedate:</label>
+            <input type="text" id="rel" th:field="*{description}">
             <br>
             <input type="submit" class="btn" value="Sök">
         </form>
@@ -212,10 +214,11 @@
                             <input type="text" th:field="*{mid}" style="display:none">
                             <input type="text" th:field="*{title}" style="display:none">
                             <input type="text" th:field="*{category}" style="display:none">
+                            <input type="text" th:field="*{description}" style="display:none">
                             <input type="submit" value="<">
                         </form>
                     </td>
-                    <th:block th:if="${#lists.size(pages) != 0}" th:each="page : ${pages}">
+                    <th:block th:if="${#lists.size(pages) > 1}" th:each="page : ${pages}">
                         <td>
                             <form action="#" th:action="@{/showmovie/}+${paging}+'/'+${page}+'/'"
                                   th:object="${movie}"
@@ -223,6 +226,7 @@
                                 <input type="text" th:field="*{mid}" style="display:none">
                                 <input type="text" th:field="*{title}" style="display:none">
                                 <input type="text" th:field="*{category}" style="display:none">
+                                <input type="text" th:field="*{description}" style="display:none">
                                 <input type="submit" th:value="${page+1}"
                                        th:style="${currentpage}==${page}? 'color:hotpink' : 'color:purple'">
                             </form>
@@ -236,6 +240,7 @@
                             <input type="text" th:field="*{mid}" style="display:none">
                             <input type="text" th:field="*{title}" style="display:none">
                             <input type="text" th:field="*{category}" style="display:none">
+                            <input type="text" th:field="*{description}" style="display:none">
                             <input type="submit" value=">">
                         </form>
                     </td>
