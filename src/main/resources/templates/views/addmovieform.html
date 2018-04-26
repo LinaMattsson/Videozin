@@ -1,46 +1,88 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<a href="/">Start</a>
-<a href="/addmovie">Lägg till film</a>
-<a href="/addcustomer">Lägg till kund</a>
-<a href="/showcustomer">Sök kund</a>
-<a href="/logout"></a>
 
-<h1>Lägg till film</h1>
+<div class="navWrapper">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-fadedNew">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--<a class="navbar-brand" href="#">HyrDinFilm</a>-->
 
-<form action="#" th:action="@{/addmovie}" th:object="${movie}" method="post">
-    Film id:<br>
-    <input type="text" th:field="*{mid}">
-    <br>
-    <br>
-    Titel:<br>
-    <input type="text" th:field="*{title}">
-    <br><br>
-    Genre:<br>
-    <input type="text" th:field="*{category}">
-    <br><br>
-    Format:<br>
-    <input type="text" th:field="*{format}">
-    <br><br>
-    Beskrivning:<br>
-    <input type="text" th:field="*{description}">
-    <br><br>
-    Release datum:<br>
-    <input type="date" th:field="*{releasedate}">
-    <br><br>
-    Hyllplats:<br>
-    <input type="text" th:field="*{shelf}">
-    <br><br>Pris:<br>
-    <input type="text" th:field="*{price}">
-    <br><br>
-    <input type="submit" value="Lägg till">
-</form>
-<br><br><br>
-<div th:text="${message}"></div>
+        <img th:src="@{/images/videoZinV2.png}" id="NavLogo">
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/start">Start</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link aHover" href="/addmovie">Lägg till film<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/addcustomer">Lägg till kund</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/showcustomer">Sök kund</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link aHover" href="/logout">Logga ut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div id="collectionDivs">
+    <img th:src="@{/images/camera-1980184_960_720.png}" id="kamera">
+
+<div class="container">
+    <form id="contact" action="#" th:action="@{/addmovie}" th:object="${movie}" method="post">
+        <h2>Lägg till film</h2>
+        <br>
+        <!--<h4>Fyll i allt</h4>-->
+        Film id:<br>
+        <input type="text" th:field="*{mid}">
+        <br>
+        <br>
+        Titel:<br>
+        <input type="text" th:field="*{title}">
+        <br><br>
+        Genre:<br>
+        <input type="text" th:field="*{category}">
+        <br><br>
+        Format:<br>
+        <input type="text" th:field="*{format}">
+        <br><br>
+        Beskrivning:<br>
+        <input type="text" th:field="*{description}">
+        <br><br>
+        Release datum:<br>
+        <input type="date" th:field="*{releasedate}">
+        <br><br>
+        Hyllplats:<br>
+        <input type="text" th:field="*{shelf}">
+        <br><br>Pris:<br>
+        <input type="text" th:field="*{price}">
+        <br><br>
+        <!--<input type="submit" value="Lägg till">-->
+        <button name="submit" type="submit" id="contact-submit">Lägg till</button>
+        <br><br>
+
+        <div th:text="${message}"></div>
+    </form>
+</div>
+
+</div>
+
+<footer>This page was designed by VideoZinCompany - 2018</footer>
+
 </body>
 </html>
