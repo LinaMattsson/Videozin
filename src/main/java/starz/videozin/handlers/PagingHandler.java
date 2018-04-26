@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 
 public class PagingHandler {
 
-    public static List<Integer> getPageList(List<Movie> movielist, int pageSize) {
+    private static int pageSize = 5;
+
+    public static List<Integer> getPageList(List<Movie> movielist) {
         List<Integer> pages = new ArrayList<>();
         int totalpages = (int) Math.ceil((movielist.size() - 1) / pageSize);
 
@@ -18,7 +20,7 @@ public class PagingHandler {
         return pages;
     }
 
-    public static List<Movie> getPagedMovieList(List<Movie> movielist, int currentpage, int pageSize) {
+    public static List<Movie> getPagedMovieList(List<Movie> movielist, int currentpage) {
         movielist = movielist.stream()
                 .skip((currentpage) * pageSize)
                 .limit(pageSize)

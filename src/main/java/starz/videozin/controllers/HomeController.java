@@ -52,7 +52,6 @@ public class HomeController {
 
     @GetMapping("/showmovie/result/{currentpage}")
     public String showMovie(@PathVariable int currentpage, @ModelAttribute Movie movie, Model model) throws ParseException {
-        int pageSize = 5;
         List<Movie> movielist = new ArrayList<>();
         model=autoImport(model);
 
@@ -94,9 +93,9 @@ public class HomeController {
             movielist = movieRepository.findMovieByTitle(movie.getTitle());
         }
 
-        model.addAttribute("pages", PagingHandler.getPageList(movielist, pageSize));
+        model.addAttribute("pages", PagingHandler.getPageList(movielist));
 
-        movielist = PagingHandler.getPagedMovieList(movielist,currentpage,pageSize);
+        movielist = PagingHandler.getPagedMovieList(movielist,currentpage);
 
         model.addAttribute("movielist", movielist);
         model.addAttribute("currentpage", currentpage);
@@ -188,12 +187,11 @@ public class HomeController {
 
     @GetMapping("showmovie/rented/{currentpage}/")
     public String rentedMovies(@PathVariable int currentpage, Model model) {
-        int pageSize = 5;
         List<Movie> movielist = movieRepository.findMovieByRented();
 
-        model.addAttribute("pages", PagingHandler.getPageList(movielist, pageSize));
+        model.addAttribute("pages", PagingHandler.getPageList(movielist));
 
-        movielist = PagingHandler.getPagedMovieList(movielist,currentpage,pageSize);
+        movielist = PagingHandler.getPagedMovieList(movielist,currentpage);
 
         model.addAttribute("currentpage", currentpage);
 
@@ -206,16 +204,15 @@ public class HomeController {
     @GetMapping("showmovie/late/{currentpage}")
     public String lateMovies(@PathVariable int currentpage, Model model){
         List<Movie> lateList = movieRepository.findMovieByRented();
-        int pageSize = 5;
 
         lateList = lateList.stream()
                 .filter(m -> m.getRentdate().before(Date.valueOf(LocalDate.now().minusDays(1))))
                 .collect(Collectors.toList());
 
-        model.addAttribute("pages", PagingHandler.getPageList(lateList, pageSize));
+        model.addAttribute("pages", PagingHandler.getPageList(lateList));
 
         model.addAttribute("currentpage", currentpage);
-        lateList = PagingHandler.getPagedMovieList(lateList,currentpage,pageSize);
+        lateList = PagingHandler.getPagedMovieList(lateList,currentpage);
         model=autoImport(model);
         model.addAttribute("movielist", lateList);
 
